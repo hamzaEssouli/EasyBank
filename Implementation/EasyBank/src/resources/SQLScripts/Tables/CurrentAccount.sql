@@ -1,0 +1,5 @@
+CREATE TABLE currentAccounts (
+    id INT NOT NULL UNIQUE PRIMARY KEY,
+    overdraft DOUBLE PRECISION NOT NULL,
+    FOREIGN KEY (id) REFERENCES accounts(id) ON DELETE CASCADE
+);

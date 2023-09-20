@@ -1,0 +1,9 @@
+CREATE TABLE MissionAssignments (
+	id SERIAL NOT NULL UNIQUE PRIMARY KEY,
+	employeeId INT NOT NULL,
+	missionId INT NOT NULL,
+	assignmentStartDate DATE NOT NULL DEFAULT CURRENT_DATE,
+	assignmentEndDate DATE DEFAULT NULL,
+	FOREIGN KEY (employeeId) REFERENCES Employees (id) ON DELETE SET NULL,
+	FOREIGN KEY (missionId) REFERENCES Missions (id) ON DELETE SET NULL 
+);

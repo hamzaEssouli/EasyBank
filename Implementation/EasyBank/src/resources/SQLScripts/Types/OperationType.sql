@@ -1,0 +1,1 @@
+CREATE TYPE operationType AS enum('WITHDRAWAL', 'DIPOSIT');

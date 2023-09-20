@@ -1,0 +1,5 @@
+CREATE TABLE savingAccounts (
+    id INT NOT NULL UNIQUE PRIMARY KEY,
+    interestRate DOUBLE PRECISION NOT NULL,
+    FOREIGN KEY (id) REFERENCES accounts(id) ON DELETE CASCADE
+);

@@ -1,0 +1,1 @@
+CREATE TYPE accountStatus AS enum('ACTIVE', 'INACTIVE', 'FROZEN', 'CLOSED');
