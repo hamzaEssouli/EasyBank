@@ -13,12 +13,12 @@ public class Employee extends Person {
 
     public Employee() {};
     public Employee(String lastName, String firstName, LocalDate dateOfBirth, String phoneNUmber, LocalDate recruitmentDate, String email) {
-        super(email, email, recruitmentDate, email);
+        super(lastName, firstName, dateOfBirth, phoneNUmber);
         this.recruitmentDate = recruitmentDate;
         this.email = email;
     }
-    public Employee(int id, String lastName, String firstName, LocalDate dateOfBirth, String phoneNUmber, LocalDate recruitmentDate, String email) {
-        super(id, lastName, firstName, dateOfBirth ,phoneNUmber);
+    public Employee(int id, String lastName, String firstName, LocalDate dateOfBirth, String phoneNumber, LocalDate recruitmentDate, String email) {
+        super(id, lastName, firstName, dateOfBirth ,phoneNumber);
         this.recruitmentDate = recruitmentDate;
         this.email = email;
     }

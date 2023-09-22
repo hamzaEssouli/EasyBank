@@ -46,7 +46,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
                     return Optional.of(employee);
                 }
             }
-        } catch (SQLException e) { System.out.println(employee.getPhoneNumber()); e.printStackTrace(); }
+        } catch (SQLException e) { e.printStackTrace(); }
 
         return Optional.empty();
     }
@@ -65,8 +65,13 @@ public class EmployeeDAOImp implements EmployeeDAO {
 
     @Override
     public boolean delete(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        String deleteQuery = "DELETE FROM employees WHERE id = ?";
+        int deletedCount = 0;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
+            preparedStatement.setInt(1, id);
+            deletedCount = preparedStatement.executeUpdate();
+        } catch( SQLException e ) { e.printStackTrace(); }
+        return (deletedCount > 0) ? true : false;
     }
 
     @Override

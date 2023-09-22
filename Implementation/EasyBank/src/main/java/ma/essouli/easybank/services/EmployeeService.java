@@ -27,4 +27,8 @@ public class EmployeeService {
         :
             null;
     }
+    
+    public boolean delete(int id) {
+        return employeeDAO.delete(id);
+    }
 }

@@ -27,6 +27,7 @@ public class EmployeeView {
             System.out.flush();
             System.out.println("*******************************Employee menu**********************************");
             System.out.println("1 - Add");
+            System.out.println("2 - Delete");
             System.out.println("0 - back to main menu");
             System.out.print("Enter your choice: ");
             try {
@@ -34,7 +35,7 @@ public class EmployeeView {
             } catch (Exception e) {
                 scanner.next();
             }
-        } while( choice < 0 || choice > 1);
+        } while( choice < 0 || choice > 2);
 
         return choice;
     }
@@ -65,6 +66,47 @@ public class EmployeeView {
         System.out.println("\n\n");
         System.out.println("Enter some input to back to main menu.");
         scanner.next();
+    }
+    public void notCreated() {
+        try {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("*******************************Employee couldn't be added**********************************");
+            System.out.println("\n\n");
+            System.out.println("check your inputs and try again");
+            Thread.sleep(3000);
+        } catch (Exception e) { e.printStackTrace(); }        
+    }
+
+    public int delete() {
+        scanner.nextLine();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Delete employee**********************************");
+        System.out.println("(0): Back to main menu");
+        int id = getId();
+        return id;
+    }
+
+    public void deleted(int id) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Employee deleted succsessfully**********************************");
+        System.out.println("\n\n");
+        System.out.println("Employee with registration number ( "+id+" ) deleted.");
+        System.out.println("\n\n");
+        System.out.println("Enter some input to back to main menu.");
+        scanner.next();
+    }
+    public void notDeleted() {
+        try {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("*******************************Employee couldn't be deleted**********************************");
+            System.out.println("\n\n");
+            System.out.println("Employee may be not exist or have clients depend on it");
+            Thread.sleep(3000);
+        } catch (Exception e) { e.printStackTrace(); }        
     }
 
     private String getName(String label) {
@@ -145,6 +187,30 @@ public class EmployeeView {
             }catch(Exception e){ valid = false; }
         } while(phoneNumber.length() > 15 || phoneNumber.length() < 12 || ! valid );
         return phoneNumber;
+    }
+
+    private int getId() {
+        int id = -1;
+        boolean valid = false;
+        String answer = "";
+        do {
+            try {
+                System.out.print("Registration number: ");
+                id = scanner.nextInt();
+                valid = true;
+            } catch( Exception e) { scanner.next(); }
+        } while( ! valid );
+        scanner.nextLine();
+        do {
+            try {
+                System.out.println("Are u realy want to delete the employee with that registration number ? [yes/no]");
+                answer = scanner.nextLine().toLowerCase();
+            } catch (Exception e) { scanner.next(); }
+        } while(  ! answer.equals("yes")  &&  ! answer.equals("no") || answer.equals("")  );
+        if( answer.compareTo("no") == 0 ) 
+            id = 0;
+
+        return id;
     }
 
 

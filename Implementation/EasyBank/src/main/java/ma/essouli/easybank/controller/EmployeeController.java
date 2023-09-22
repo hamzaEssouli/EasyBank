@@ -24,9 +24,17 @@ public class EmployeeController {
     public void main() {
         byte choice = view.menu(); 
         switch( choice ) {
+            case 0:
+                MainController.main();
+                break;
             case 1:
                 this.create();
                 break;
+            case 2: 
+                this.delete();
+                break;
+            default:
+                this.main();
         }
     }
 
@@ -34,5 +42,17 @@ public class EmployeeController {
         Employee employee = service.create( view.create() );
         if( employee != null )
             view.created(employee);
+        this.main();
+    }
+
+    private void delete() {
+        int id = view.delete();
+        if(id != 0) { 
+            if( service.delete(id) == false ) 
+                view.notDeleted();
+            else 
+                view.deleted(id);     
+        } 
+        this.main();
     }
 }
