@@ -33,6 +33,9 @@ public class EmployeeController {
             case 2: 
                 this.delete();
                 break;
+            case 3: 
+                this.searchByRegistrationCode();
+                break;
             default:
                 this.main();
         }
@@ -42,17 +45,44 @@ public class EmployeeController {
         Employee employee = service.create( view.create() );
         if( employee != null )
             view.created(employee);
+        else view.notCreated();
         this.main();
     }
 
     private void delete() {
         int id = view.delete();
         if(id != 0) { 
-            if( service.delete(id) == false ) 
-                view.notDeleted();
-            else 
+            if( service.delete(id) ) 
                 view.deleted(id);     
+            else 
+                view.notDeleted();
         } 
+        this.main();
+    }
+
+    private void searchByRegistrationCode() {
+        Employee employee = service.searchByRegistrationCode( view.searchByRegistrationCode() );
+        byte choice = 0;
+        if( employee != null )
+            choice = view.founded(employee);
+        else 
+            view.notFounded();
+        
+        switch(choice) {
+            case 0:
+                this.main();
+                break;
+            case 1:
+                view.showEmployeeClients( service.getClients(employee.getId()) );
+                break;
+            case 2:
+                view.showEmployeeMissionAssignments( service.getMissionAssignments( employee.getId() ) );
+                break;
+            case 3:
+                view.showEmployeeOperations( service.getOperations( employee.getId() ) );
+                break;
+        }
+
         this.main();
     }
 }
