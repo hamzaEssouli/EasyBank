@@ -71,20 +71,17 @@ public class EmployeeDAOImp implements EmployeeDAO {
                 "WHERE id = ?;";
         
         try( PreparedStatement preparedStatement = connection.prepareStatement(updateQuery) ) {
-                preparedStatement.setInt(1, employee.getId());   
-                
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if(  resultSet != null ) {
-                    employee.setId( resultSet.getInt("id") );
-                    employee.setLastName(resultSet.getString("lastName"));
-                    employee.setFirstName(resultSet.getString("firstName"));
-                    employee.setDateOfBirth(LocalDate.parse(resultSet.getDate("dateOfBirth").toString()));
-                    employee.setPhoneNumber(resultSet.getString("phoneNumber"));
-                    employee.setRecruitmentDate(LocalDate.parse(resultSet.getDate("recruitmentDate").toString()));
-                    employee.setEmail(resultSet.getString("email"));
+            preparedStatement.setString(1, employee.getLastName());
+            preparedStatement.setString(2, employee.getFirstName());
+            preparedStatement.setObject(3, employee.getDateOfBirth());
+            preparedStatement.setString(4, employee.getPhoneNumber());
+            preparedStatement.setObject(5, employee.getRecruitmentDate());
+            preparedStatement.setString(6, employee.getEmail());
+            preparedStatement.setInt(7, employee.getId());   
 
+                
+                if( preparedStatement.executeUpdate() > 0 ) 
                     return Optional.of(employee);
-                }
         } catch( Exception e ) { e.printStackTrace(); }
 
         return Optional.empty();

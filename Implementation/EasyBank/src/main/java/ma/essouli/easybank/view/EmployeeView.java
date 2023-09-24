@@ -34,6 +34,7 @@ public class EmployeeView {
             System.out.println("2 - Delete");
             System.out.println("3 - search by registration code");
             System.out.println("4 - display employees list");
+            System.out.println("5 - update an employee");
             System.out.println("0 - back to main menu");
             System.out.print("Enter your choice: ");
             try {
@@ -41,7 +42,7 @@ public class EmployeeView {
             } catch (Exception e) {
                 scanner.next();
             }
-        } while( choice < 0 || choice > 4);
+        } while( choice < 0 || choice > 6);
 
         return choice;
     }
@@ -181,16 +182,46 @@ public class EmployeeView {
     }
 
     public Employee update(Employee employee) {
-        String lastName = employee.getLastName();
-        String firstName = employee.getFirstName();
-        LocalDate dateOfBirth = employee.getDateOfBirth();
-        LocalDate recruitmentDate = employee.getRecruitmentDate();
-        String email = employee.getEmail();
-        String phoneNumber = employee.getPhoneNumber();
+        scanner.nextLine();
+        System.out.println(employee);
+        System.out.println("\n\n\n");
+        String lastName = getName("Last");
+        String firstName = getName("First");
+        LocalDate dateOfBirth = getDate("Birth");
+        LocalDate recruitmentDate = getDate("Recruitment");
+        scanner.nextLine();
+        String email = getEmail();
+        String phoneNumber = getPhoneNumber();
         
-        
-
+        employee.setLastName(lastName);
+        employee.setFirstName(firstName);
+        employee.setDateOfBirth(dateOfBirth);
+        employee.setRecruitmentDate(recruitmentDate);
+        employee.setPhoneNumber(phoneNumber);
+        employee.setEmail(email);
         return employee;
+    }
+
+    public void updated(Employee employee) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Employee updated succsessfully**********************************");
+        System.out.println("\n\n");
+        System.out.println(employee);
+        System.out.println("\n\n");
+        System.out.println("Enter some input to back to main menu.");
+        scanner.next();
+    }
+
+    public void notUpdated() {
+        try {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("*******************************Employee couldn't be updated**********************************");
+            System.out.println("\n\n");
+            System.out.println("May the new provided information is taken by another employee, check your inputs and try again.");
+            Thread.sleep(4000);
+        } catch (Exception e) { e.printStackTrace(); }  
     }
 
 
@@ -217,15 +248,16 @@ public class EmployeeView {
     public void showEmployeeMissionAssignments(List<MissionAssignment> assignments) {
         System.out.println("[\n\n");
         if( ! assignments.isEmpty() )
-            for (MissionAssignment assignment : assignments) {
+            for (MissionAssignment assignment : assignments) 
                 System.out.println(assignment);
-            }
+            
         else System.out.println("This Employee have no mission assignments"); 
         System.out.println("\n\n]");
         System.out.println("\n\n");
         System.out.println("Enter some input to back to main menu.");
         scanner.next();
     }
+    
     public void showEmployeeOperations(List<Operation> operations) {
         System.out.println("[\n\n");
         if( ! operations.isEmpty() )

@@ -39,6 +39,8 @@ public class EmployeeController {
             case 4:
                 this.display();
                 break;
+            case 5: 
+                this.update();
             default:
                 this.main();
         }
@@ -96,7 +98,15 @@ public class EmployeeController {
     }
 
     private void update() {
-        service.searchByRegistrationCode( view.edit() );
-        
+        Employee employee = service.searchByRegistrationCode( view.edit() );
+        if( employee == null )
+            view.notFounded();
+        else    
+            if(service.update( view.update(employee) ) != null) 
+                view.updated(employee);
+            else
+                view.notUpdated();
+
+        this.main(); 
     }
 }
