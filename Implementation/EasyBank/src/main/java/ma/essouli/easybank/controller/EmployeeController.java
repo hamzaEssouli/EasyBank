@@ -36,6 +36,9 @@ public class EmployeeController {
             case 3: 
                 this.searchByRegistrationCode();
                 break;
+            case 4:
+                this.display();
+                break;
             default:
                 this.main();
         }
@@ -84,5 +87,16 @@ public class EmployeeController {
         }
 
         this.main();
+    }
+
+
+    private void display() {
+        view.DisplayEmployeesList( service.read() );
+        this.main();
+    }
+
+    private void update() {
+        service.searchByRegistrationCode( view.edit() );
+        
     }
 }

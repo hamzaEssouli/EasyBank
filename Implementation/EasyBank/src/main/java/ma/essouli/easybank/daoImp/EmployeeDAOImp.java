@@ -61,14 +61,56 @@ public class EmployeeDAOImp implements EmployeeDAO {
 
     @Override
     public Optional<Employee> update(Employee employee) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        String updateQuery = "UPDATE employees SET\n" + //
+                "firstName = ?,\n" + //
+                "lastName = ?,\n" + //
+                "dateOfBirth = ?,\n" + //
+                "phoneNumber = ?,\n" + //
+                "recruitmentDate = ?,\n" + //
+                "email = ?\n" + //
+                "WHERE id = ?;";
+        
+        try( PreparedStatement preparedStatement = connection.prepareStatement(updateQuery) ) {
+                preparedStatement.setInt(1, employee.getId());   
+                
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if(  resultSet != null ) {
+                    employee.setId( resultSet.getInt("id") );
+                    employee.setLastName(resultSet.getString("lastName"));
+                    employee.setFirstName(resultSet.getString("firstName"));
+                    employee.setDateOfBirth(LocalDate.parse(resultSet.getDate("dateOfBirth").toString()));
+                    employee.setPhoneNumber(resultSet.getString("phoneNumber"));
+                    employee.setRecruitmentDate(LocalDate.parse(resultSet.getDate("recruitmentDate").toString()));
+                    employee.setEmail(resultSet.getString("email"));
+
+                    return Optional.of(employee);
+                }
+        } catch( Exception e ) { e.printStackTrace(); }
+
+        return Optional.empty();
     }
 
     @Override
     public List<Employee> read() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'read'");
+        String readQuery = "SELECT * FROM Employees";
+        List<Employee> employees = new ArrayList<>();
+        try(PreparedStatement preparedStatement = connection.prepareStatement(readQuery)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while( resultSet.next() ) {
+                Employee employee = new Employee();
+                employee.setId( resultSet.getInt("id") );
+                employee.setLastName(resultSet.getString("lastName"));
+                employee.setFirstName(resultSet.getString("firstName"));
+                employee.setDateOfBirth(LocalDate.parse(resultSet.getDate("dateOfBirth").toString()));
+                employee.setPhoneNumber(resultSet.getString("phoneNumber"));
+                employee.setRecruitmentDate(LocalDate.parse(resultSet.getDate("recruitmentDate").toString()));
+                employee.setEmail(resultSet.getString("email"));
+
+                employees.add(employee);
+            }
+        } catch( Exception e ) { e.printStackTrace(); }
+
+        return employees;
     }
 
     @Override

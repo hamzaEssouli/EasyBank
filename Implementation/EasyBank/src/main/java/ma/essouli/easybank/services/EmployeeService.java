@@ -43,6 +43,18 @@ public class EmployeeService {
             null;
     }
 
+    public List<Employee> read() {
+        return employeeDAO.read();
+    }
+
+    public Employee update(Employee employee) {
+        Optional<Employee> optionalEmployee = employeeDAO.update(employee);
+        return optionalEmployee.isPresent() ?
+            optionalEmployee.get()
+        :
+            null;
+    } 
+
     public List<Client> getClients(int employeeId) {
         List<Client> clients = employeeDAO.getClients(employeeId);
         return clients;

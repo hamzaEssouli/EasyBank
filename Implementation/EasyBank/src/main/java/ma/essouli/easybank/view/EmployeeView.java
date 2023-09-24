@@ -33,6 +33,7 @@ public class EmployeeView {
             System.out.println("1 - Add");
             System.out.println("2 - Delete");
             System.out.println("3 - search by registration code");
+            System.out.println("4 - display employees list");
             System.out.println("0 - back to main menu");
             System.out.print("Enter your choice: ");
             try {
@@ -40,7 +41,7 @@ public class EmployeeView {
             } catch (Exception e) {
                 scanner.next();
             }
-        } while( choice < 0 || choice > 3);
+        } while( choice < 0 || choice > 4);
 
         return choice;
     }
@@ -91,6 +92,27 @@ public class EmployeeView {
         int id = getId("delete");
         return id;
     }
+    public void deleted(int id) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Employee deleted succsessfully**********************************");
+        System.out.println("\n\n");
+        System.out.println("Employee with registration number ( "+id+" ) deleted.");
+        System.out.println("\n\n");
+        System.out.println("Enter some input to back to main menu.");
+        scanner.next();
+    }
+    public void notDeleted() {
+        try {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("*******************************Employee couldn't be deleted**********************************");
+            System.out.println("\n\n");
+            System.out.println("Employee may be not exist or have clients depend on it");
+            Thread.sleep(3000);
+        } catch (Exception e) { e.printStackTrace(); }        
+    }
+
 
     public int searchByRegistrationCode() {
         System.out.print("\033[H\033[2J");
@@ -135,32 +157,41 @@ public class EmployeeView {
         } catch (Exception e) { e.printStackTrace(); }  
     }
 
-    public void deleted(int id) {
+
+    public void DisplayEmployeesList(List<Employee> employees){
+        scanner.nextLine();
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.println("*******************************Employee deleted succsessfully**********************************");
-        System.out.println("\n\n");
-        System.out.println("Employee with registration number ( "+id+" ) deleted.");
-        System.out.println("\n\n");
+        System.out.println("*******************************Display Employees**********************************");
+        System.out.println("\n\n\n");
+        for(Employee employee : employees) 
+            System.out.println(employee);
+        System.out.println("\n\n\n");
         System.out.println("Enter some input to back to main menu.");
         scanner.next();
     }
-    public void notDeleted() {
-        try {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
-            System.out.println("*******************************Employee couldn't be deleted**********************************");
-            System.out.println("\n\n");
-            System.out.println("Employee may be not exist or have clients depend on it");
-            Thread.sleep(3000);
-        } catch (Exception e) { e.printStackTrace(); }        
+
+    public int edit() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Update employee**********************************");
+        System.out.println("(0): Back to main menu");
+        int id = getId("update");
+        return id;
     }
 
+    public Employee update(Employee employee) {
+        String lastName = employee.getLastName();
+        String firstName = employee.getFirstName();
+        LocalDate dateOfBirth = employee.getDateOfBirth();
+        LocalDate recruitmentDate = employee.getRecruitmentDate();
+        String email = employee.getEmail();
+        String phoneNumber = employee.getPhoneNumber();
+        
+        
 
-
-
-
-
+        return employee;
+    }
 
 
 
