@@ -224,6 +224,34 @@ public class EmployeeDAOImp implements EmployeeDAO {
 
         return operations;
     }
+    @Override
+    public List<Employee> search(String attribute) {
+        String searchQuery = "SELECT * FROM Employees WHERE ( firstName LIKE ? ) OR ( lastName LIKE ? ) OR ( phoneNumber = ? ) OR ( email LIKE ? )";
+        List<Employee> employees = new ArrayList<>();
+        try(PreparedStatement preparedStatement = connection.prepareStatement(searchQuery)) {
+            preparedStatement.setString(1, attribute);
+            preparedStatement.setString(2, attribute);
+            preparedStatement.setString(3, attribute);
+            preparedStatement.setString(4, attribute);
+
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while( resultSet.next() ) {
+                Employee employee = new Employee();
+                employee.setId( resultSet.getInt("id") );
+                employee.setLastName(resultSet.getString("lastName"));
+                employee.setFirstName(resultSet.getString("firstName"));
+                employee.setDateOfBirth(LocalDate.parse(resultSet.getDate("dateOfBirth").toString()));
+                employee.setPhoneNumber(resultSet.getString("phoneNumber"));
+                employee.setRecruitmentDate(LocalDate.parse(resultSet.getDate("recruitmentDate").toString()));
+                employee.setEmail(resultSet.getString("email"));
+
+                employees.add(employee);
+            }
+        } catch(SQLException e) { e.printStackTrace(); }
+
+        return employees;
+    }
     
     
 }

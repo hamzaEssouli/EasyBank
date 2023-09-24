@@ -14,4 +14,5 @@ public interface EmployeeDAO extends Dao<Employee> {
     List<Client> getClients(int employeeId);
     List<MissionAssignment> getMissionAssignments(int employeeId);
     List<Operation> getOperations(int employeeId);
+    List<Employee> search(String attribute);
 }

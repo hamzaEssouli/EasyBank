@@ -1,5 +1,7 @@
 package ma.essouli.easybank.controller;
 
+import java.util.List;
+
 import ma.essouli.easybank.dto.Employee;
 import ma.essouli.easybank.services.EmployeeService;
 import ma.essouli.easybank.view.EmployeeView;
@@ -41,6 +43,9 @@ public class EmployeeController {
                 break;
             case 5: 
                 this.update();
+                break;
+            case 6:
+                this.search();
             default:
                 this.main();
         }
@@ -108,5 +113,11 @@ public class EmployeeController {
                 view.notUpdated();
 
         this.main(); 
+    }
+
+    private void search() {
+        List<Employee> employees = service.search( view.search() );
+        view.DisplayEmployeesList(employees);
+        this.main();
     }
 }

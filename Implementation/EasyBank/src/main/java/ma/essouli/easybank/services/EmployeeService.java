@@ -55,6 +55,10 @@ public class EmployeeService {
             null;
     } 
 
+    public List<Employee> search(String attribut) {
+        return employeeDAO.search(attribut);
+    }
+
     public List<Client> getClients(int employeeId) {
         List<Client> clients = employeeDAO.getClients(employeeId);
         return clients;

@@ -35,6 +35,7 @@ public class EmployeeView {
             System.out.println("3 - search by registration code");
             System.out.println("4 - display employees list");
             System.out.println("5 - update an employee");
+            System.out.println("6 - search by attribut");
             System.out.println("0 - back to main menu");
             System.out.print("Enter your choice: ");
             try {
@@ -160,13 +161,15 @@ public class EmployeeView {
 
 
     public void DisplayEmployeesList(List<Employee> employees){
-        scanner.nextLine();
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.println("*******************************Display Employees**********************************");
         System.out.println("\n\n\n");
-        for(Employee employee : employees) 
-            System.out.println(employee);
+        if(! employees.isEmpty() )
+            for(Employee employee : employees) 
+                System.out.println(employee);
+        else 
+            System.out.println("\n\n\n No founded employees");
         System.out.println("\n\n\n");
         System.out.println("Enter some input to back to main menu.");
         scanner.next();
@@ -226,7 +229,21 @@ public class EmployeeView {
 
 
 
-
+    public String search() {
+        String attribut = "";
+        scanner.nextLine();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Search employees by attribut**********************************");
+        System.out.println("(0): Back to main menu");
+        do {
+            try {
+                System.out.print("Attribut : ");
+                attribut = scanner.nextLine();
+            } catch ( Exception e) { scanner.next(); }
+        } while( attribut.length() < 1 || attribut.length() > 50 );
+        return attribut;
+    }
 
 
 
@@ -257,7 +274,7 @@ public class EmployeeView {
         System.out.println("Enter some input to back to main menu.");
         scanner.next();
     }
-    
+
     public void showEmployeeOperations(List<Operation> operations) {
         System.out.println("[\n\n");
         if( ! operations.isEmpty() )
@@ -270,6 +287,7 @@ public class EmployeeView {
         System.out.println("Enter some input to back to main menu.");
         scanner.next();
     }
+
 
 
 
