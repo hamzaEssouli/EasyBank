@@ -46,6 +46,10 @@ public class ClientService {
         return clientDAO.read();
     }
 
+    public List<Client> search(String attribut) {
+        return clientDAO.search(attribut);
+    }
+
     public Employee getEmployee(int employeeId) {
         Optional<Employee> optionalEmployee = clientDAO.getEmployee(employeeId);
         return optionalEmployee.isPresent() ?

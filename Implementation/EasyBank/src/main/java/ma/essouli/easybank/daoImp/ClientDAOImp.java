@@ -97,9 +97,31 @@ public class ClientDAOImp implements ClientDAO {
     }
 
     @Override
-    public Optional<Client> search(String attribute) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
+    public List<Client> search(String attribute) {
+        String searchQuery = "SELECT * FROM Clients WHERE ( firstName LIKE ? ) OR ( lastName LIKE ? ) OR ( phoneNumber = ? ) OR ( address LIKE ? )";
+        List<Client> clients = new ArrayList<>();
+        try(PreparedStatement preparedStatement = connection.prepareStatement(searchQuery)) {
+            preparedStatement.setString(1, attribute);
+            preparedStatement.setString(2, attribute);
+            preparedStatement.setString(3, attribute);
+            preparedStatement.setString(4, attribute);
+
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while( resultSet.next() ) {
+                Client client = new Client();
+                client.setId( resultSet.getInt("id") );
+                client.setLastName(resultSet.getString("lastName"));
+                client.setFirstName(resultSet.getString("firstName"));
+                client.setDateOfBirth(LocalDate.parse(resultSet.getDate("dateOfBirth").toString()));
+                client.setPhoneNumber(resultSet.getString("phoneNumber"));
+                client.setAddress(resultSet.getString("address"));
+
+                clients.add(client);
+            }
+        } catch(SQLException e) { e.printStackTrace(); }
+
+        return clients;
     }
 
     @Override

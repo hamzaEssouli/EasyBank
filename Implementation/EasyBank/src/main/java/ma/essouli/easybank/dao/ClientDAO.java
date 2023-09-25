@@ -9,7 +9,7 @@ import ma.essouli.easybank.dto.Employee;
 
 public interface ClientDAO extends Dao<Client> {
     
-    Optional<Client> search(String attribute);
+    List<Client> search(String attribute);
     Optional<Client> searchById(int clientId);
     List<Account> getAccounts(int clientId);
     Optional<Employee> getEmployee(int employeeId);

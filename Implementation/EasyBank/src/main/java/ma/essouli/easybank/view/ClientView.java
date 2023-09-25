@@ -33,8 +33,8 @@ public class ClientView {
             System.out.println("2 - Delete");
             System.out.println("3 - search by registration code");
             System.out.println("4 - display Clients list");
-            System.out.println("5 - update an Client");
-            System.out.println("6 - search by attribut");
+            System.out.println("5 - search by attribut");
+            System.out.println("6 - update an Client");
             System.out.println("0 - back to main menu");
             System.out.print("Enter your choice: ");
             try {

@@ -1,5 +1,7 @@
 package ma.essouli.easybank.controller;
 
+import java.util.List;
+
 import ma.essouli.easybank.dto.Client;
 import ma.essouli.easybank.dto.Employee;
 import ma.essouli.easybank.services.ClientService;
@@ -39,6 +41,9 @@ public class ClientController {
                 break;
             case 4:
                 this.display();
+                break;
+            case 5:
+                this.search();
                 break;
         }
     }
@@ -85,6 +90,12 @@ public class ClientController {
 
     private void display() {
         view.DisplayClientsList( service.read() );
+        this.main();
+    }
+
+    private void search() {
+        List<Client> clients = service.search( view.search() );
+        view.DisplayClientsList(clients);
         this.main();
     }
 
