@@ -1,6 +1,7 @@
 package ma.essouli.easybank.controller;
 
 import ma.essouli.easybank.dto.Client;
+import ma.essouli.easybank.dto.Employee;
 import ma.essouli.easybank.services.ClientService;
 import ma.essouli.easybank.view.ClientView;
 
@@ -33,6 +34,9 @@ public class ClientController {
             case 2: 
                 this.delete();
                 break;
+            case 3:
+                this.searchByRegistrationCode();
+                break;
         }
     }
 
@@ -51,6 +55,28 @@ public class ClientController {
             else 
                 view.notDeleted();
         } 
+        this.main();
+    }
+
+    private void searchByRegistrationCode() {
+        Client client = service.searchByRegistrationCode( view.searchByRegistrationCode() );
+        byte choice = 0;
+        if( client != null )
+            choice = view.founded(client);
+        else 
+            view.notFounded();
+        
+        switch(choice) {
+            case 0:
+                this.main();
+                break;
+            case 1:
+                // client accounts
+            case 2:
+                view.showClientAssistant( service.getEmployee( client.getEmployee().getId() ) );
+                break;
+        }
+
         this.main();
     }
 

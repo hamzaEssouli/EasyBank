@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import ma.essouli.easybank.daoImp.ClientDAOImp;
 import ma.essouli.easybank.dto.Client;
+import ma.essouli.easybank.dto.Employee;
 
 
 public class ClientService {
@@ -30,5 +31,21 @@ public class ClientService {
 
     public boolean delete(int id) {
         return clientDAO.delete(id);
+    }
+
+    public Client searchByRegistrationCode(int id) {
+        Optional<Client> optionalClient = clientDAO.searchById(id);
+        return optionalClient.isPresent() ?
+            optionalClient.get()
+        :
+            null;
+    }
+
+    public Employee getEmployee(int employeeId) {
+        Optional<Employee> optionalEmployee = clientDAO.getEmployee(employeeId);
+        return optionalEmployee.isPresent() ?
+            optionalEmployee.get()
+        :
+            null;
     }
 }

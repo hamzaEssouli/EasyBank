@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import ma.essouli.easybank.dto.Account;
 import ma.essouli.easybank.dto.Client;
+import ma.essouli.easybank.dto.Employee;
 
 
 public class ClientView {
@@ -246,13 +247,9 @@ public class ClientView {
 
 
 
-    public void showClientAssistant(List<Client> clients) {
+    public void showClientAssistant(Employee employee) {
         System.out.println("[\n\n");
-        if( ! clients.isEmpty() )
-            for (Client client : clients) {
-                System.out.println(client);
-            }
-        else System.out.println("This Client have no clients"); 
+        System.out.println(employee);
         System.out.println("\n\n]");
         System.out.println("\n\n");
         System.out.println("Enter some input to back to main menu.");
