@@ -57,9 +57,29 @@ public class ClientDAOImp implements ClientDAO {
     }
 
     @Override
-    public Optional<Client> update(Client t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public Optional<Client> update(Client client) {
+        String updateQuery = "UPDATE Clients SET\n" + //
+                "firstName = ?,\n" + //
+                "lastName = ?,\n" + //
+                "dateOfBirth = ?,\n" + //
+                "phoneNumber = ?,\n" + //
+                "address = ?\n" + //
+                "WHERE id = ?;";
+        
+        try( PreparedStatement preparedStatement = connection.prepareStatement(updateQuery) ) {
+            preparedStatement.setString(1, client.getLastName());
+            preparedStatement.setString(2, client.getFirstName());
+            preparedStatement.setObject(3, client.getDateOfBirth());
+            preparedStatement.setString(4, client.getPhoneNumber());
+            preparedStatement.setObject(5, client.getAddress());
+            preparedStatement.setInt(6, client.getId());   
+
+                
+            if( preparedStatement.executeUpdate() > 0 ) 
+            return Optional.of(client);
+        } catch( Exception e ) { e.printStackTrace(); }
+
+        return Optional.empty();
     }
 
     @Override

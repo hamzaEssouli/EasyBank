@@ -57,4 +57,12 @@ public class ClientService {
         :
             null;
     }
+
+    public Client update(Client client) {
+        Optional<Client> optionalClient = clientDAO.update(client);
+        return optionalClient.isPresent() ?
+            optionalClient.get()
+        :
+            null;
+    } 
 }

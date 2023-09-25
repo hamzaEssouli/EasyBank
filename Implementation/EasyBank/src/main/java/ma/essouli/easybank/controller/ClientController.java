@@ -45,6 +45,9 @@ public class ClientController {
             case 5:
                 this.search();
                 break;
+            case 6:
+                this.update();
+                break;
         }
     }
 
@@ -97,6 +100,19 @@ public class ClientController {
         List<Client> clients = service.search( view.search() );
         view.DisplayClientsList(clients);
         this.main();
+    }
+
+    private void update() {
+        Client client = service.searchByRegistrationCode( view.edit() );
+        if( client == null )
+            view.notFounded();
+        else    
+            if(service.update( view.update(client) ) != null) 
+                view.updated(client);
+            else
+                view.notUpdated();
+
+        this.main(); 
     }
 
 }
