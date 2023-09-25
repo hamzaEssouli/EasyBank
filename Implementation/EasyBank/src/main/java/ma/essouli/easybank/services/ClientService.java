@@ -1,5 +1,6 @@
 package ma.essouli.easybank.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import ma.essouli.easybank.daoImp.ClientDAOImp;
@@ -39,6 +40,10 @@ public class ClientService {
             optionalClient.get()
         :
             null;
+    }
+
+    public List<Client> read() {
+        return clientDAO.read();
     }
 
     public Employee getEmployee(int employeeId) {

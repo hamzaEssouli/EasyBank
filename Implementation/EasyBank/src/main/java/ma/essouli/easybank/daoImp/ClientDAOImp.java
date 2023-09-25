@@ -64,8 +64,24 @@ public class ClientDAOImp implements ClientDAO {
 
     @Override
     public List<Client> read() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'read'");
+        String readQuery = "SELECT * FROM Clients";
+        List<Client> clients = new ArrayList<>();
+        try(PreparedStatement preparedStatement = connection.prepareStatement(readQuery)) {
+            ResultSet result = preparedStatement.executeQuery();
+            while( result.next() ) {
+                Client client = new Client();
+                client.setId(result.getInt("id"));
+                client.setLastName(result.getString("lastName"));
+                client.setFirstName(result.getString("firstName"));
+                client.setDateOfBirth(LocalDate.parse(result.getDate("dateOfBirth").toString()));
+                client.setPhoneNumber(result.getString("phoneNumber"));
+                client.setAddress(result.getString("address"));
+
+                clients.add(client);
+            }
+        } catch( Exception e ) { e.printStackTrace(); }
+
+        return clients;
     }
 
     @Override

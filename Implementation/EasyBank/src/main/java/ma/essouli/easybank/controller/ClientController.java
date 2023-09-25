@@ -37,6 +37,9 @@ public class ClientController {
             case 3:
                 this.searchByRegistrationCode();
                 break;
+            case 4:
+                this.display();
+                break;
         }
     }
 
@@ -77,6 +80,11 @@ public class ClientController {
                 break;
         }
 
+        this.main();
+    }
+
+    private void display() {
+        view.DisplayClientsList( service.read() );
         this.main();
     }
 
