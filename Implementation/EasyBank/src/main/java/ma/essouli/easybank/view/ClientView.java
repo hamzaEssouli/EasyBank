@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import ma.essouli.easybank.dto.Account;
 import ma.essouli.easybank.dto.Client;
-import ma.essouli.easybank.dto.Operation;
+
 
 public class ClientView {
     private static ClientView instance = null;
@@ -109,7 +109,7 @@ public class ClientView {
             System.out.flush();
             System.out.println("*******************************Client couldn't be deleted**********************************");
             System.out.println("\n\n");
-            System.out.println("Client may be not exist or have clients depend on it");
+            System.out.println("Client not exist");
             Thread.sleep(3000);
         } catch (Exception e) { e.printStackTrace(); }        
     }

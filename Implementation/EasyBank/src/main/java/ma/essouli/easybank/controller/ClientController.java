@@ -30,6 +30,9 @@ public class ClientController {
             case 1:
                 this.create();
                 break;
+            case 2: 
+                this.delete();
+                break;
         }
     }
 
@@ -38,6 +41,16 @@ public class ClientController {
         if( client != null )
             view.created(client);
         else view.notCreated();
+        this.main();
+    }
+    private void delete() {
+        int id = view.delete();
+        if(id != 0) { 
+            if( service.delete(id) ) 
+                view.deleted(id);     
+            else 
+                view.notDeleted();
+        } 
         this.main();
     }
 

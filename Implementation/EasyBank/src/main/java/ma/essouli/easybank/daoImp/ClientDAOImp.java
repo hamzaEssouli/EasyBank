@@ -66,8 +66,14 @@ public class ClientDAOImp implements ClientDAO {
 
     @Override
     public boolean delete(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        String deleteQuery = "DELETE FROM clients WHERE id = ?";
+        int deletedCount = 0;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
+            preparedStatement.setInt(1, id);
+
+            deletedCount = preparedStatement.executeUpdate();
+        } catch( SQLException e ) { e.printStackTrace(); }
+        return (deletedCount > 0) ? true : false;
     }
 
     @Override

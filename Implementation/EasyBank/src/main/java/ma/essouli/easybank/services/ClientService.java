@@ -27,4 +27,8 @@ public class ClientService {
         :
             null;
     }
+
+    public boolean delete(int id) {
+        return clientDAO.delete(id);
+    }
 }
