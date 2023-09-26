@@ -205,6 +205,47 @@ public class AccountView {
     }
 
 
+    public int edit() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Update Client**********************************");
+        System.out.println("(0): Back to main menu");
+        int id = getId("update");
+        return id;
+    }
+
+    public AccountStatus update(Account account) {
+        scanner.nextLine();
+        System.out.println(account);
+        System.out.println("\n\n\n");
+        AccountStatus status = getStatus();
+        return status;
+    }
+
+    public void updated(Account account) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Account status updated succsessfully**********************************");
+        System.out.println("\n\n");
+        System.out.println(account);
+        System.out.println("\n\n");
+        System.out.println("Enter some input to back to main menu.");
+        scanner.next();
+    }
+
+    public void notUpdated() {
+        try {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("*******************************Account status couldn't be updated**********************************");
+            System.out.println("\n\n");
+            System.out.println("Error, check your inputs and try again.");
+            Thread.sleep(4000);
+        } catch (Exception e) { e.printStackTrace(); }  
+    }
+
+
+
     private int getId(String lable) {
         int id = -1;
         boolean valid = false;

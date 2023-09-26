@@ -3,6 +3,7 @@ package ma.essouli.easybank.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import ma.essouli.easybank.dto.Account;
 import ma.essouli.easybank.dto.CurrentAccount;
 import ma.essouli.easybank.dto.SavingAccount;
 import ma.essouli.easybank.services.AccountService;
@@ -35,12 +36,16 @@ public class AccountController {
             case 1:
                 this.create();
                 break;
+            case 2:
+                this.updateStatus();
+                break;
             case 3:
                 this.delete();
                 break;
             case 4:
                 this.searchByRegistrationCode();
                 break;
+            
         }
     }
     
@@ -77,8 +82,17 @@ public class AccountController {
 
     private void searchByRegistrationCode() {
         HashMap<String, List<?>> accounts = service.searchByClient( view.searchByClient() );
-
         view.founded(accounts);
+        this.main();
+    }
+
+    private void updateStatus() {
+        Account account = new Account();
+        account.setId( view.edit() );
+        account.setStatus( view.update(account) );
+        if( service.updateStatus(account) == null ) 
+            view.notUpdated();
+        else view.updated(account);
 
         this.main();
     }

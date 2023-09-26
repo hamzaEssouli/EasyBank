@@ -69,6 +69,15 @@ public class AccountService {
         return accounts;
     }
 
+    public Account updateStatus(Account newAccount) {
+        Optional<Account> account = accountDAO.updateStatus(newAccount);
+        return account.isPresent() ?
+            account.get()
+        :
+            null;
+
+    }
+
 
 
 

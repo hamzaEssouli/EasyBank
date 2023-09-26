@@ -66,6 +66,21 @@ public class AccountDAOImp implements AccountDAO {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'show'");
     }
+
+    @Override
+    public Optional<Account> updateStatus(Account account) {
+        String updateStatusQuery = "UPDATE Accounts SET status = ? WHERE id = ?";
+        try( PreparedStatement preparedStatement = connection.prepareStatement(updateStatusQuery) ) {
+            preparedStatement.setObject(1, account.getStatus(), Types.OTHER);
+            preparedStatement.setInt(2, account.getId());
+
+            if(preparedStatement.executeUpdate() > 0) 
+                return Optional.of(account);
+        } catch( SQLException e ) { e.printStackTrace(); }
+
+        return Optional.empty();
+    }
+   
     
 
 
