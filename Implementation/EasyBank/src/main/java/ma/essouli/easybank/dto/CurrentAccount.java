@@ -8,6 +8,7 @@ public class CurrentAccount extends Account {
     
     private float overdraft;
 
+    public CurrentAccount() {}
     public CurrentAccount(double balance, float overdraft, AccountStatus status, Client client, LocalDate creationDate) {
         setBalance(balance);
         setOverdraft(overdraft);
@@ -27,12 +28,12 @@ public class CurrentAccount extends Account {
 
     @Override
     public String toString() {
-        return "{\n"+
+        return "\n{\n"+
         "\tAccount number: " + this.id + '\n'+
         "\tBalance : " + this.balance + '\n'+
         "\tStatus : " + this.status + '\n'+
         "\tOverdraft : " + this.overdraft +   "%\n"+
         "\tCreation date: " + this.creationDate + '\n'+
-        "}";
+        "}\n";
     }
 }

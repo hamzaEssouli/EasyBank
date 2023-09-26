@@ -1,8 +1,12 @@
 package ma.essouli.easybank.view;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
+import ma.essouli.easybank.dto.Account;
 import ma.essouli.easybank.dto.Client;
 import ma.essouli.easybank.dto.CurrentAccount;
 import ma.essouli.easybank.dto.SavingAccount;
@@ -78,7 +82,7 @@ public class AccountView {
         float overdraft = getOverdraft();
         Client client = new Client();
         client.setId(clientId);
-        return new CurrentAccount(balance, overdraft, status, client);
+        return new CurrentAccount(balance, overdraft, status, client, LocalDate.now());
     }
 
     public SavingAccount createSavingAccount() {
@@ -156,6 +160,48 @@ public class AccountView {
             System.out.println("Account not exist");
             Thread.sleep(3000);
         } catch (Exception e) { e.printStackTrace(); }        
+    }
+
+
+    public int searchByClient() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Search Account by client**********************************");
+        System.out.println("(0): Back to main menu");
+        System.out.print("Client ");
+        int id = getId("search");
+        return id;
+    }
+
+    public void founded(HashMap< String, List<?>> accounts) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Client founded succsessfully**********************************");
+        System.out.println("\n\n");
+        System.out.println("Current accounts \n\n\n");
+        if( ! accounts.get("currentAccounts").isEmpty() )
+            System.out.println(accounts.get("currentAccounts").toString() );
+        else System.out.println("No current Accounts");
+        System.out.println("\n\n\n\n");
+        System.out.println("Saving accounts \n\n\n");
+        if( ! accounts.get("savingAccounts").isEmpty() )
+            System.out.println(accounts.get("savingAccounts").toString());
+        else System.out.println("No saving Accounts");
+        System.out.println("\n\n\n\n");
+
+        System.out.println("Enter some input to back to main menu.");
+        scanner.next();
+    }
+
+    public void notFounded() {
+        try {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("*******************************account not founded**********************************");
+            System.out.println("\n\n");
+            System.out.println("There is no Account with those credentials.");
+            Thread.sleep(3000);
+        } catch (Exception e) { e.printStackTrace(); }  
     }
 
 

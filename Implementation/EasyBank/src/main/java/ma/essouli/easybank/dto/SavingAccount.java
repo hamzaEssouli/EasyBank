@@ -8,6 +8,7 @@ public class SavingAccount extends Account {
     
     private double interestRate;
 
+    public SavingAccount() {}
     public SavingAccount(double balance, float interestRate, AccountStatus status, Client client, LocalDate creationDate) {
         setBalance(balance);
         setInterestRate(interestRate);
@@ -27,12 +28,12 @@ public class SavingAccount extends Account {
 
     @Override
     public String toString() {
-        return "{\n"+
+        return "\n{\n"+
         "\tAccount number: " + this.id + '\n'+
         "\tBalance : " + this.balance + '\n'+
         "\tStatus : " + this.status + '\n'+
         "\tInterest rate : " + this.interestRate +   "%\n"+
         "\tCreation date: " + this.creationDate + '\n'+
-        "}";
+        "}\n";
     }
 }

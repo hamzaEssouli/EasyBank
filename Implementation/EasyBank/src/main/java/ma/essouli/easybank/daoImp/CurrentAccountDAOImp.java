@@ -4,10 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import ma.essouli.easybank.dao.CurrentAccountDAO;
 import ma.essouli.easybank.dto.CurrentAccount;
+import ma.essouli.easybank.dto.SavingAccount;
+import ma.essouli.easybank.enums.AccountStatus;
 import ma.essouli.easybank.utilities.DataBaseAccessLayer;
 
 public class CurrentAccountDAOImp implements CurrentAccountDAO {
@@ -44,6 +49,33 @@ public class CurrentAccountDAOImp implements CurrentAccountDAO {
     public Optional<CurrentAccount> update(CurrentAccount account) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+    @Override
+    public List<CurrentAccount> searchByClient(int clientId) {
+        String readQuery = "SELECT * FROM currentAccounts JOIN Accounts ON Accounts.id = currentAccounts.id WHERE clientId = ?";
+        List<CurrentAccount> accounts = new ArrayList<>();
+        try(PreparedStatement preparedStatement = connection.prepareStatement(readQuery)) {
+            preparedStatement.setInt(1, clientId);
+
+            ResultSet result = preparedStatement.executeQuery();
+            while( result.next() ) {
+                CurrentAccount account = new CurrentAccount();
+                account.setId(result.getInt("id"));
+                account.setBalance(result.getDouble("balance"));
+                account.setCreationDate(LocalDate.parse( result.getDate("creationDate").toString() ) );
+                account.setOverdraft(result.getFloat("overdraft"));
+                account.setStatus( AccountStatus.valueOf( result.getString("status") ) );
+                
+                accounts.add(account);
+            }
+        } catch( SQLException e) { e.printStackTrace(); }
+        
+        return accounts;
+    }
+    @Override
+    public List<CurrentAccount> searchByOperation(int operationId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'searchByOperation'");
     }
     
 }

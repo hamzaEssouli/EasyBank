@@ -6,13 +6,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 import ma.essouli.easybank.dao.AccountDAO;
 import ma.essouli.easybank.dto.Account;
-import ma.essouli.easybank.enums.AccountStatus;
 import ma.essouli.easybank.utilities.DataBaseAccessLayer;
 
 public class AccountDAOImp implements AccountDAO {
@@ -51,17 +48,7 @@ public class AccountDAOImp implements AccountDAO {
         return Optional.empty();
     }
 
-    @Override
-    public Optional<Account> update(Account t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
-    }
-
-    @Override
-    public List<Account> read() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'read'");
-    }
+    
 
     @Override
     public boolean delete(int accountId) {
@@ -74,30 +61,13 @@ public class AccountDAOImp implements AccountDAO {
         } catch( SQLException e ) { e.printStackTrace(); }
         return (deletedCount > 0) ? true : false;
     }
-
     @Override
-    public List<Account> searchByClient(int clientId) {
+    public Optional<Account> show(int accountId) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'searchByClient'");
+        throw new UnsupportedOperationException("Unimplemented method 'show'");
     }
+    
 
-    @Override
-    public Optional<Account> searchByOperationId(int operationId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'searchByOperationId'");
-    }
-
-    @Override
-    public List<Account> displayByStatus(AccountStatus status) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayByStatus'");
-    }
-
-    @Override
-    public List<Account> displayByCreationDate(LocalDate creationDate) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayByCreationDate'");
-    }
 
    
     

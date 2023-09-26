@@ -1,5 +1,7 @@
 package ma.essouli.easybank.services;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 import ma.essouli.easybank.dao.AccountDAO;
@@ -56,4 +58,19 @@ public class AccountService {
         return accountDAO.delete(accountId);
     }
 
+    public HashMap<String, List<?>> searchByClient(int clientId) {
+        List<CurrentAccount> currentAccounts = currentAccountDAOImp.searchByClient(clientId);
+        List<SavingAccount> savingAccounts = savingAccountDAOImp.searchByClient(clientId);
+
+        HashMap<String, List<?>> accounts = new HashMap<>();
+        accounts.put("currentAccounts", currentAccounts);
+        accounts.put("savingAccounts", savingAccounts);
+
+        return accounts;
+    }
+
+
+
+
+    
 }
