@@ -52,4 +52,8 @@ public class AccountService {
             null;
     }
 
+    public boolean delete(int accountId) {
+        return accountDAO.delete(accountId);
+    }
+
 }

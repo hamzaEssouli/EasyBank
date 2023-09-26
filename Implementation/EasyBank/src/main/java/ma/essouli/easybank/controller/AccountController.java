@@ -32,6 +32,9 @@ public class AccountController {
             case 1:
                 this.create();
                 break;
+            case 3:
+                this.delete();
+                break;
         }
     }
     
@@ -52,6 +55,17 @@ public class AccountController {
                     view.savingAccountCreated(savingAccount);
                 
         }
+        this.main();
+    }
+
+    private void delete() {
+        int id = view.delete();
+        if(id != 0) { 
+            if( service.delete(id) ) 
+                view.deleted(id);     
+            else 
+                view.notDeleted();
+        } 
         this.main();
     }
 

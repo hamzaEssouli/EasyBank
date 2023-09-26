@@ -129,6 +129,34 @@ public class AccountView {
     }
 
     
+    public int delete() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Delete account**********************************");
+        System.out.println("(0): Back to main menu");
+        int id = getId("delete");
+        return id;
+    }
+    public void deleted(int id) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Account deleted succsessfully**********************************");
+        System.out.println("\n\n");
+        System.out.println("Account with  number ( "+id+" ) deleted.");
+        System.out.println("\n\n");
+        System.out.println("Enter some input to back to main menu.");
+        scanner.next();
+    }
+    public void notDeleted() {
+        try {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("*******************************Account couldn't be deleted**********************************");
+            System.out.println("\n\n");
+            System.out.println("Account not exist");
+            Thread.sleep(3000);
+        } catch (Exception e) { e.printStackTrace(); }        
+    }
 
 
     private int getId(String lable) {
@@ -146,7 +174,7 @@ public class AccountView {
             scanner.nextLine();
             do {
                 try {
-                    System.out.println("Are u realy want to delete the employee with that registration code ? [yes/no]");
+                    System.out.println("Do u realy want to delete the account with that code ? [yes/no]");
                     answer = scanner.nextLine().toLowerCase();
                 } catch (Exception e) { scanner.next(); }
             } while(  ! answer.equals("yes")  &&  ! answer.equals("no") || answer.equals("")  );

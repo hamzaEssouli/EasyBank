@@ -64,9 +64,15 @@ public class AccountDAOImp implements AccountDAO {
     }
 
     @Override
-    public boolean delete(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    public boolean delete(int accountId) {
+        String deleteQuery = "DELETE FROM accounts WHERE id = ?";
+        int deletedCount = 0;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
+            preparedStatement.setInt(1, accountId );
+
+            deletedCount = preparedStatement.executeUpdate();
+        } catch( SQLException e ) { e.printStackTrace(); }
+        return (deletedCount > 0) ? true : false;
     }
 
     @Override
