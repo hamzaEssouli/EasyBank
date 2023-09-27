@@ -110,6 +110,8 @@ public class AccountController {
             case 2:
                 view.DisplayAccountsList( service.displayByStatus( view.getStatus() ) );
                 break;
+            case 3:
+                view.DisplayAccountsList( service.displayAccountsByCreationDate( view.getDate() ) );
         }
         
         this.main();

@@ -125,6 +125,27 @@ public class AccountDAOImp implements AccountDAO {
 
         return accounts;
     }
+    @Override
+    public List<Account> displayAccountsByCreationDate(LocalDate creationDate) {
+        String readQuery = "SELECT * FROM accounts WHERE creationDate = ?";
+        List<Account> accounts = new ArrayList<>();
+        try(PreparedStatement preparedStatement = connection.prepareStatement(readQuery)) {
+            preparedStatement.setObject(1,  creationDate);
+            
+            ResultSet result = preparedStatement.executeQuery();
+            while( result.next() ) {
+                Account account = new Account();
+                account.setId(result.getInt("id"));
+                account.setBalance(result.getDouble("balance"));
+                account.setCreationDate(LocalDate.parse( result.getDate("creationDate").toString() ) );
+                account.setStatus( AccountStatus.valueOf( result.getString("status") ));
+                
+                accounts.add(account);
+            }
+        } catch( Exception e ) { e.printStackTrace();  }
+
+        return accounts;
+    }
    
     
 

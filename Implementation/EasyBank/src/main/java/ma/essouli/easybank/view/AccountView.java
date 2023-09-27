@@ -1,6 +1,7 @@
 package ma.essouli.easybank.view;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -370,5 +371,41 @@ public class AccountView {
                 break;
         }
         return status;
+    }
+
+    public LocalDate getDate() {
+        LocalDate date = null;
+        boolean valid = false;
+        do {
+            try {
+                int year = 0;
+                byte month = 0;
+                byte day = 0;
+
+                System.out.println("date: ");
+                do {
+                    try {
+                        System.out.print("Year: ");
+                        year = scanner.nextInt();
+                    } catch (Exception e) { scanner.next(); }
+                } while( year > LocalDate.now().getYear() );
+                do {
+                    try {
+                        System.out.print("Month: ");
+                        month = scanner.nextByte();
+                    } catch (Exception e) { scanner.next(); }
+                } while( month > 12 || month < 1 );
+                do {
+                    try {
+                        System.out.print("Day: ");
+                        day = scanner.nextByte();
+                    } catch (Exception e) { scanner.next(); }
+                } while( day > 31 || (month % 2 == 0 && day > 30 ) || (month == 2 && day > 29 ) );
+                date = LocalDate.of(year, month, day);
+                valid = true;
+            } catch ( Exception e) { scanner.next(); }
+        } while( ! valid );
+
+        return date;
     }
 }

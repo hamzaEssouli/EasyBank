@@ -1,5 +1,6 @@
 package ma.essouli.easybank.services;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -85,6 +86,10 @@ public class AccountService {
 
     public List<Account> displayByStatus(AccountStatus status) {
         return accountDAO.displayAccountsByStatus(status);
+    }
+
+    public List<Account> displayAccountsByCreationDate(LocalDate creationDate) {
+        return accountDAO.displayAccountsByCreationDate(creationDate);
     }
 
 
