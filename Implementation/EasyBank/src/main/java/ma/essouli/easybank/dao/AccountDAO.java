@@ -6,10 +6,8 @@ import java.util.Optional;
 import ma.essouli.easybank.dto.Account;
 
 
-public interface AccountDAO {
-    Optional<Account> create(Account account);
-    Optional<Account> updateStatus(Account account);
+public interface AccountDAO extends Dao<Account> {
+    
     Optional<Account> show(int accountId);
-    boolean delete(int accountId);
 
 }

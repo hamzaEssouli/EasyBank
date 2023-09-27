@@ -176,7 +176,7 @@ public class AccountView {
     public void founded(HashMap< String, List<?>> accounts) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.println("*******************************Client founded succsessfully**********************************");
+        System.out.println("*******************************Account founded succsessfully**********************************");
         System.out.println("\n\n");
         System.out.println("Current accounts \n\n\n");
         if( ! accounts.get("currentAccounts").isEmpty() )
@@ -197,7 +197,7 @@ public class AccountView {
         try {
             System.out.print("\033[H\033[2J");
             System.out.flush();
-            System.out.println("*******************************account not founded**********************************");
+            System.out.println("*******************************Account not founded**********************************");
             System.out.println("\n\n");
             System.out.println("There is no Account with those credentials.");
             Thread.sleep(3000);
@@ -208,7 +208,7 @@ public class AccountView {
     public int edit() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.println("*******************************Update Client**********************************");
+        System.out.println("*******************************Update account**********************************");
         System.out.println("(0): Back to main menu");
         int id = getId("update");
         return id;
@@ -242,6 +242,21 @@ public class AccountView {
             System.out.println("Error, check your inputs and try again.");
             Thread.sleep(4000);
         } catch (Exception e) { e.printStackTrace(); }  
+    }
+
+    public void DisplayAccountsList(List<Account> accounts){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Display account**********************************");
+        System.out.println("\n\n\n");
+        if(! accounts.isEmpty() )
+            for(Account account : accounts) 
+                System.out.println(account);
+        else 
+            System.out.println("\n\n\n No founded Accounts");
+        System.out.println("\n\n\n");
+        System.out.println("Enter some input to back to main menu.");
+        scanner.next();
     }
 
 

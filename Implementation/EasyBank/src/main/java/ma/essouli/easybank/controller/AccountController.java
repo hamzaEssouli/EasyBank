@@ -45,6 +45,10 @@ public class AccountController {
             case 4:
                 this.searchByRegistrationCode();
                 break;
+            case 6:
+                this.display();
+                break;
+                
             
         }
     }
@@ -94,6 +98,11 @@ public class AccountController {
             view.notUpdated();
         else view.updated(account);
 
+        this.main();
+    }
+
+    private void display() {
+        view.DisplayAccountsList( service.read() );
         this.main();
     }
 
