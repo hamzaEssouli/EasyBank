@@ -102,8 +102,18 @@ public class AccountController {
     }
 
     private void display() {
-        view.DisplayAccountsList( service.read() );
+        byte choice = view.display();
+        switch(choice) {
+            case 1:
+                view.DisplayAccountsList( service.read() );
+                break;
+            case 2:
+                view.DisplayAccountsList( service.displayByStatus( view.getStatus() ) );
+                break;
+        }
+        
         this.main();
     }
+
 
 }

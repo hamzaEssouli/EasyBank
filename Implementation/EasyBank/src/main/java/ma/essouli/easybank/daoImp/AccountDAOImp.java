@@ -13,7 +13,6 @@ import java.util.Optional;
 
 import ma.essouli.easybank.dao.AccountDAO;
 import ma.essouli.easybank.dto.Account;
-import ma.essouli.easybank.dto.Client;
 import ma.essouli.easybank.enums.AccountStatus;
 import ma.essouli.easybank.utilities.DataBaseAccessLayer;
 
@@ -91,6 +90,27 @@ public class AccountDAOImp implements AccountDAO {
         String readQuery = "SELECT * FROM accounts";
         List<Account> accounts = new ArrayList<>();
         try(PreparedStatement preparedStatement = connection.prepareStatement(readQuery)) {
+            ResultSet result = preparedStatement.executeQuery();
+            while( result.next() ) {
+                Account account = new Account();
+                account.setId(result.getInt("id"));
+                account.setBalance(result.getDouble("balance"));
+                account.setCreationDate(LocalDate.parse( result.getDate("creationDate").toString() ) );
+                account.setStatus( AccountStatus.valueOf( result.getString("status") ));
+                
+                accounts.add(account);
+            }
+        } catch( Exception e ) { e.printStackTrace(); }
+
+        return accounts;
+    }
+    @Override
+    public List<Account> displayAccountsByStatus(AccountStatus status) {
+        String readQuery = "SELECT * FROM accounts WHERE status = ?";
+        List<Account> accounts = new ArrayList<>();
+        try(PreparedStatement preparedStatement = connection.prepareStatement(readQuery)) {
+            preparedStatement.setObject(1, status,  Types.OTHER);
+            
             ResultSet result = preparedStatement.executeQuery();
             while( result.next() ) {
                 Account account = new Account();

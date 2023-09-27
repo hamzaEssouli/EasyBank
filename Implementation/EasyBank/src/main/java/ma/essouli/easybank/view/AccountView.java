@@ -37,8 +37,8 @@ public class AccountView {
             System.out.println("2 - update ");
             System.out.println("3 - Delete");
             System.out.println("4 - search");
-            System.out.println("5 - update account status");
-            System.out.println("6 - display accounts");
+            System.out.println("5 - update");
+            System.out.println("6 - display");
             System.out.println("0 - back to main menu");
             System.out.print("Enter your choice: ");
             try {
@@ -244,6 +244,25 @@ public class AccountView {
         } catch (Exception e) { e.printStackTrace(); }  
     }
 
+    public byte display() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Display account**********************************");
+        System.out.println("\n\n\n");
+        byte choice = -1;
+        System.out.println("1 - All accounts");
+        System.out.println("2 - by status");
+        System.out.println("3 - by creation date");
+        do{
+            try{
+                System.out.print("\nchoice: ");
+                choice = scanner.nextByte();
+            } catch( Exception e) { scanner.next(); }
+        } while(choice < 1 || choice > 3 );
+        return choice;
+
+    }
+
     public void DisplayAccountsList(List<Account> accounts){
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -326,7 +345,7 @@ public class AccountView {
         return overdraft;
     }
 
-    private AccountStatus getStatus() {
+    public AccountStatus getStatus() {
         AccountStatus status = AccountStatus.ACTIVE;
         byte choice = -1;
         System.out.println("Status");

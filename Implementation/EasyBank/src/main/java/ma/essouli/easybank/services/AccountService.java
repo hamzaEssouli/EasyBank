@@ -11,6 +11,7 @@ import ma.essouli.easybank.daoImp.SavingAccountDAOImp;
 import ma.essouli.easybank.dto.Account;
 import ma.essouli.easybank.dto.CurrentAccount;
 import ma.essouli.easybank.dto.SavingAccount;
+import ma.essouli.easybank.enums.AccountStatus;
 
 public class AccountService {
     
@@ -80,6 +81,10 @@ public class AccountService {
 
     public List<Account> read() {
         return accountDAO.read();
+    }
+
+    public List<Account> displayByStatus(AccountStatus status) {
+        return accountDAO.displayAccountsByStatus(status);
     }
 
 
