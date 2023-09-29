@@ -35,12 +35,9 @@ public class OperationController {
                 this.delete();
                 break;
             case 3:
-                this.searchByCode();
+                this.search();
                 break;
         }
-    }
-
-    private void searchByCode() {
     }
 
     
@@ -62,6 +59,15 @@ public class OperationController {
             else 
                 view.notDeleted();
         } 
+        this.main();
+    }
+
+    private void search() {
+        Operation operation = service.search( view.search() );
+        if( operation == null )
+            view.notFounded();
+        else view.founded(operation);
+
         this.main();
     }
 

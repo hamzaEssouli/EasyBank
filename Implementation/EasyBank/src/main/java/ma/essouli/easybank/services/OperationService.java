@@ -33,4 +33,13 @@ public class OperationService {
         return operationDAO.delete(id);
     }
     
+
+    public Operation search(int operationId) {
+        Optional<Operation> optionalOperation = operationDAO.search(operationId);
+
+        return optionalOperation.isPresent() ?
+            optionalOperation.get()
+        :
+            null;
+    }
 }

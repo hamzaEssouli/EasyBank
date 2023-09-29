@@ -9,8 +9,10 @@ import java.sql.Types;
 import java.time.LocalDate;
 import java.util.Optional;
 
+
 import ma.essouli.easybank.dao.OperationDAO;
 import ma.essouli.easybank.dto.Operation;
+import ma.essouli.easybank.enums.OperationType;
 import ma.essouli.easybank.utilities.DataBaseAccessLayer;
 
 public class OperationDAOImp implements OperationDAO {
@@ -74,8 +76,27 @@ public class OperationDAOImp implements OperationDAO {
 
     @Override
     public Optional<Operation> search(int operationId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
+        String searchQuery = "SELECT * FROM Operations WHERE id = ?";
+
+        try( PreparedStatement preparedStatement = connection.prepareStatement(searchQuery) ) {
+            preparedStatement.setInt(1, operationId);
+
+            ResultSet result = preparedStatement.executeQuery();
+            if( result.next() ) {
+                Operation  operation = new Operation();
+                operation.setId(operationId);
+                operation.setAmount(result.getDouble("amount"));
+                operation.setDate( LocalDate.parse( result.getDate("date").toString() ) );
+                operation.setType( OperationType.valueOf( result.getString("type") ) );
+                operation.setAccount( accountDAO.find(result.getInt("accountId")).get() );
+                operation.setEmployee( employeeDAO.searchByRegistrationCode(result.getInt("employeeId")).get() );
+
+                return Optional.of(operation);
+            }
+                 
+        } catch( SQLException e ) { e.printStackTrace();  }
+
+        return Optional.empty();
     }
     
 }

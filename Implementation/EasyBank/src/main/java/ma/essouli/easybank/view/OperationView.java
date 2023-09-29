@@ -122,6 +122,38 @@ public class OperationView {
         } catch (Exception e) { e.printStackTrace(); }        
     }
 
+    public int search() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Search operation**********************************");
+        System.out.println("(0): Back to main menu");
+        int id = getId("search");
+        return id;
+    }
+    
+    public void founded(Operation operation) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Operation founded succsessfully**********************************");
+        System.out.println("\n\n");
+        System.out.println(operation);
+        System.out.println("\n\n");
+        System.out.println("Enter some input to back to main menu.");
+        scanner.next();
+    }
+
+    public void notFounded() {
+        try {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("*******************************Operation not founded**********************************");
+            System.out.println("\n\n");
+            System.out.println("There is no operation with those credentials.");
+            Thread.sleep(3000);
+        } catch (Exception e) { e.printStackTrace(); }  
+    }
+
+
 
 
     private int getId(String lable) {
