@@ -43,8 +43,7 @@ public class OperationController {
     private void searchByCode() {
     }
 
-    private void delete() {
-    }
+    
 
     private void create() {
         Operation operation = service.create( view.create() );
@@ -52,6 +51,17 @@ public class OperationController {
             view.notCreated();
         else view.created(operation);
 
+        this.main();
+    }
+
+    private void delete() {
+        int id = view.delete();
+        if(id != 0) { 
+            if( service.delete(id) ) 
+                view.deleted(id);     
+            else 
+                view.notDeleted();
+        } 
         this.main();
     }
 

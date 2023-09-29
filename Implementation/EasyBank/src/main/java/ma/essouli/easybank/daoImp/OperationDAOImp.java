@@ -61,8 +61,15 @@ public class OperationDAOImp implements OperationDAO {
 
     @Override
     public boolean delete(int operationId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        String deleteQuery = "DELETE FROM operations WHERE id = ?";
+        try( PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery) ) {
+            preparedStatement.setInt(1, operationId);
+
+            if( preparedStatement.executeUpdate() > 0 ) 
+                return true;
+        } catch( SQLException e ) { e.printStackTrace(); System.exit(0);}
+
+        return false;
     }
 
     @Override

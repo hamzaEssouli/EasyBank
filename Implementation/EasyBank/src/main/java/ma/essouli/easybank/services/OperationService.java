@@ -28,4 +28,9 @@ public class OperationService {
         :
             null;
     }
+
+    public boolean delete(int id) {
+        return operationDAO.delete(id);
+    }
+    
 }

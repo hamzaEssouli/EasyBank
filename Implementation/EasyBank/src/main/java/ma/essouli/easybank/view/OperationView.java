@@ -91,6 +91,37 @@ public class OperationView {
         } catch (Exception e) { e.printStackTrace(); }        
     }
 
+    public int delete() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Delete operation**********************************");
+        System.out.println("(0): Back to main menu");
+        int id = getId("delete");
+        return id;
+    }
+
+    public void deleted(int id) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Operation deleted succsessfully**********************************");
+        System.out.println("\n\n");
+        System.out.println("Operation with code ( "+id+" ) deleted.");
+        System.out.println("\n\n");
+        System.out.println("Enter some input to back to main menu.");
+        scanner.next();
+    }
+
+    public void notDeleted() {
+        try {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("*******************************Operation couldn't be deleted**********************************");
+            System.out.println("\n\n");
+            System.out.println("Try again.");
+            Thread.sleep(3000);
+        } catch (Exception e) { e.printStackTrace(); }        
+    }
+
 
 
     private int getId(String lable) {
