@@ -32,7 +32,7 @@ public class CurrentAccount extends Account {
         "\tAccount number: " + this.id + '\n'+
         "\tBalance : " + this.balance + '\n'+
         "\tStatus : " + this.status + '\n'+
-        "\tOverdraft : " + this.overdraft +   "%\n"+
+        "\tOverdraft : " + this.overdraft +   '\n'+
         "\tCreation date: " + this.creationDate + '\n'+
         "}\n";
     }

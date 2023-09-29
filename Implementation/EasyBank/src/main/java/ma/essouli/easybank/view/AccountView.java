@@ -205,28 +205,81 @@ public class AccountView {
         } catch (Exception e) { e.printStackTrace(); }  
     }
 
-
-    public int edit() {
+    public int[] edit() {
+        int[] accountWithUpdateChoice = new int[2];
+        int choice = -1;
+        int accountId = 0;
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.println("*******************************Update account**********************************");
-        System.out.println("(0): Back to main menu");
-        int id = getId("update");
-        return id;
+        accountId = getId("update");
+        System.out.println("1 - update account balance");
+        System.out.println("2 - Update account status");
+        System.out.println("3 - Update account overdraft");
+        System.out.println("4 - Update account interest rate");
+        do{
+            try{
+                System.out.print("Enter your choice: ");
+                choice = scanner.nextByte();
+            } catch(Exception e) { scanner.next(); }
+        } while( choice < 1 || choice > 4 );
+        
+        accountWithUpdateChoice[0] = accountId;
+        accountWithUpdateChoice[1] = choice;
+        
+        return accountWithUpdateChoice;
     }
 
-    public AccountStatus update(Account account) {
+
+
+    
+
+    public Account updateBalance(Account account) {
         scanner.nextLine();
         System.out.println(account);
         System.out.println("\n\n\n");
-        AccountStatus status = getStatus();
-        return status;
+        
+        account.setBalance(getBalance());
+
+        return account;
+    }
+
+    public Account updateStatus(Account account) {
+        scanner.nextLine();
+        System.out.println(account);
+        System.out.println("\n\n\n");
+        
+        account.setStatus(getStatus());
+        
+        return account;
+    }
+
+    public CurrentAccount updateOverdraft(CurrentAccount account) {
+        scanner.nextLine();
+        System.out.println(account);
+        System.out.println("\n\n\n");
+        
+        account.setOverdraft(getOverdraft());
+        
+        return account;
+
+    }
+
+    public SavingAccount updateInterestRate(SavingAccount account) {
+        scanner.nextLine();
+        System.out.println(account);
+        System.out.println("\n\n\n");
+        
+        account.setInterestRate(getInterestRate());
+        
+        return account;
+
     }
 
     public void updated(Account account) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.println("*******************************Account status updated succsessfully**********************************");
+        System.out.println("*******************************Account updated succsessfully**********************************");
         System.out.println("\n\n");
         System.out.println(account);
         System.out.println("\n\n");
@@ -238,7 +291,7 @@ public class AccountView {
         try {
             System.out.print("\033[H\033[2J");
             System.out.flush();
-            System.out.println("*******************************Account status couldn't be updated**********************************");
+            System.out.println("*******************************Account couldn't be updated**********************************");
             System.out.println("\n\n");
             System.out.println("Error, check your inputs and try again.");
             Thread.sleep(4000);

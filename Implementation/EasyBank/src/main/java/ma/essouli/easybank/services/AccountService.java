@@ -71,13 +71,28 @@ public class AccountService {
         return accounts;
     }
 
-    public Account updateStatus(Account newAccount) {
+    public Account update(Account newAccount) {
         Optional<Account> account = accountDAO.update(newAccount);
         return account.isPresent() ?
             account.get()
         :
             null;
+    }
 
+    public CurrentAccount updateOverdraft(CurrentAccount newAccount) {
+        Optional<CurrentAccount> account = currentAccountDAOImp.update(newAccount);
+        return account.isPresent() ?
+            account.get()
+        :
+            null;
+    }
+
+    public SavingAccount updateInterestRate(SavingAccount newAccount) {
+        Optional<SavingAccount> account = savingAccountDAOImp.update(newAccount);
+        return account.isPresent() ?
+            account.get()
+        :
+            null;
     }
 
     public List<Account> read() {
@@ -92,7 +107,29 @@ public class AccountService {
         return accountDAO.displayAccountsByCreationDate(creationDate);
     }
 
+    public Account find(int accountId) {
+        Optional<Account> account = accountDAO.find(accountId);
+        return account.isPresent() ?
+            account.get()
+        :
+            null;
+    }
 
+    public CurrentAccount findCurrentAccount(int accountId) {
+        Optional<CurrentAccount> account = currentAccountDAOImp.find(accountId);
+        return account.isPresent() ?
+            account.get()
+        :
+            null;
+    }
+
+    public SavingAccount findSavingAccount(int accountId) {
+        Optional<SavingAccount> account = savingAccountDAOImp.find(accountId);
+        return account.isPresent() ?
+            account.get()
+        :
+            null;
+    }
 
 
     

@@ -37,7 +37,7 @@ public class AccountController {
                 this.create();
                 break;
             case 2:
-                this.updateStatus();
+                this.update();
                 break;
             case 3:
                 this.delete();
@@ -90,14 +90,37 @@ public class AccountController {
         this.main();
     }
 
-    private void updateStatus() {
-        Account account = new Account();
-        account.setId( view.edit() );
-        account.setStatus( view.update(account) );
-        if( service.updateStatus(account) == null ) 
-            view.notUpdated();
-        else view.updated(account);
-
+    private void update() {
+        int[] accountWithChoice = view.edit();
+        Account account = service.find(accountWithChoice[0]); 
+        switch(accountWithChoice[1]) {
+            case 1:
+                Account newAccount = service.update( view.updateBalance(account) );
+                if ( newAccount != null )
+                    view.updated(newAccount);
+                else view.notUpdated();
+                break;
+            case 2:  
+                newAccount = service.update( view.updateStatus(account) );
+                if ( newAccount != null )
+                    view.updated(newAccount);
+                else view.notUpdated();
+                break;
+            case 3:
+                CurrentAccount currentAccount = service.findCurrentAccount(accountWithChoice[0]);
+                CurrentAccount newCurrentAccount = service.updateOverdraft( view.updateOverdraft(currentAccount) );
+                if( newCurrentAccount != null )
+                    view.updated(newCurrentAccount);
+                else view.notUpdated();
+                break;
+            case 4:
+                SavingAccount savingAccount = service.findSavingAccount(accountWithChoice[0]);
+                SavingAccount  newSavingAccount = service.updateInterestRate( view.updateInterestRate(savingAccount) );
+                if(  newSavingAccount != null )
+                    view.updated(newSavingAccount);
+                else view.notUpdated();
+                break;
+        }
         this.main();
     }
 

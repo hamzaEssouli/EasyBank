@@ -9,6 +9,7 @@ public interface SavingAccountDAO {
     
     Optional<SavingAccount> create(SavingAccount account);
     Optional<SavingAccount> update(SavingAccount account);
+    Optional<SavingAccount> find(int accountId);
     List<SavingAccount> searchByClient(int clientId);
     List<SavingAccount> searchByOperation(int operationId);
 }

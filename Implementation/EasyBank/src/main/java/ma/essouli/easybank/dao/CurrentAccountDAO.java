@@ -9,6 +9,7 @@ public interface CurrentAccountDAO {
     
     Optional<CurrentAccount> create(CurrentAccount account);
     Optional<CurrentAccount> update(CurrentAccount account);
+    Optional<CurrentAccount> find(int accountId);
     List<CurrentAccount> searchByClient(int clientId);
     List<CurrentAccount> searchByOperation(int operationId);
     

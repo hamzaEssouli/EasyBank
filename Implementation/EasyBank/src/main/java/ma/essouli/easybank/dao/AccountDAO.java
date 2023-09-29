@@ -11,7 +11,8 @@ import ma.essouli.easybank.enums.AccountStatus;
 
 public interface AccountDAO extends Dao<Account> {
     
-    Optional<Account> show(int accountId);
+    Optional<Account> update(Account account);
+    Optional<Account> find(int accountId);
     List<Account> displayAccountsByStatus(AccountStatus status);
     List<Account> displayAccountsByCreationDate(LocalDate creationDate);
 

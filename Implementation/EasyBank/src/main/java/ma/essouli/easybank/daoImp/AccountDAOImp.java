@@ -20,9 +20,11 @@ public class AccountDAOImp implements AccountDAO {
 
     private Connection connection = null;
     private static AccountDAOImp instance = null;
+    private ClientDAOImp clientDAO = null;
 
     private AccountDAOImp() {
         connection = DataBaseAccessLayer.getConnection();
+        clientDAO = ClientDAOImp.getInstance();
     }
     public static AccountDAOImp getInstance() {
         if(instance == null)
@@ -66,22 +68,19 @@ public class AccountDAOImp implements AccountDAO {
         return (deletedCount > 0) ? true : false;
     }
     
-    @Override
-    public Optional<Account> show(int accountId) {
-        // TODO Auto-generated method 
-        throw new UnsupportedOperationException("Unimplemented method 'show'");
-    }
 
     @Override
     public Optional<Account> update(Account account) {
-        String updateStatusQuery = "UPDATE Accounts SET status = ? WHERE id = ?";
-        try( PreparedStatement preparedStatement = connection.prepareStatement(updateStatusQuery) ) {
-            preparedStatement.setObject(1, account.getStatus(), Types.OTHER);
-            preparedStatement.setInt(2, account.getId());
+        String updateQuery = "UPDATE Accounts SET balance = ?, status = ? WHERE id = ?";
+        try( PreparedStatement preparedStatement = connection.prepareStatement(updateQuery) ) {
+            preparedStatement.setDouble(1, account.getBalance());
+            preparedStatement.setObject(2, account.getStatus(), Types.OTHER);
+            preparedStatement.setInt(3, account.getId());
 
             if(preparedStatement.executeUpdate() > 0) 
                 return Optional.of(account);
-        } catch( SQLException e ) { e.printStackTrace(); }
+
+        } catch( SQLException e ) { e.printStackTrace();  }
 
         return Optional.empty();
     }
@@ -145,6 +144,29 @@ public class AccountDAOImp implements AccountDAO {
         } catch( Exception e ) { e.printStackTrace();  }
 
         return accounts;
+    }
+
+    @Override
+    public Optional<Account> find(int accountId) {
+        String findQuery = "SELECT * FROM accounts WHERE id = ?";
+
+        try( PreparedStatement preparedStatement = connection.prepareStatement(findQuery) ) {
+            preparedStatement.setInt(1, accountId);
+
+            ResultSet result = preparedStatement.executeQuery();
+            if( result.next() ) {
+                Account account = new Account();
+                account.setId(result.getInt("id"));
+                account.setBalance(result.getDouble("balance"));
+                account.setCreationDate(LocalDate.parse( result.getDate("creationDate").toString() ) );
+                account.setStatus( AccountStatus.valueOf( result.getString("status") ));
+                account.setClient( clientDAO.searchById(result.getInt("clientId")).get() );
+
+                return Optional.of(account);
+            }
+        } catch( SQLException e ) { e.printStackTrace();  }
+
+        return Optional.empty();
     }
    
     
