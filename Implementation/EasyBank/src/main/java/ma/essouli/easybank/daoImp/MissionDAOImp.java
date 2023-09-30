@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,8 +52,20 @@ public class MissionDAOImp implements MissionDAO {
 
     @Override
     public List<Mission> read() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'read'");
+        String selectQuery = "SELECT * FROM Missions";
+        List<Mission> missions = new ArrayList<>();
+        try( PreparedStatement preparedStatement = connection.prepareStatement(selectQuery) ) {
+            ResultSet result = preparedStatement.executeQuery();
+            while(result.next()) {
+                Mission mission = new Mission();
+                mission.setId(result.getInt("id"));
+                mission.setName(result.getString("name"));
+                mission.setDescription(result.getString("description"));
+
+                missions.add(mission);
+            }
+        } catch( SQLException e ) { e.printStackTrace(); }
+        return missions;
     }
 
     @Override
@@ -63,7 +76,7 @@ public class MissionDAOImp implements MissionDAO {
 
             if( preparedStatement.executeUpdate() > 0)
                 return true;
-        } catch( SQLException e) { e.printStackTrace(); System.exit(0); }
+        } catch( SQLException e) { e.printStackTrace(); }
 
         return false;
     }

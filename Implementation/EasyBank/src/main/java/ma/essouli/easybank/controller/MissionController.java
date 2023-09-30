@@ -41,6 +41,8 @@ public class MissionController {
     }
 
     private void display() {
+        view.display( service.read() );
+        this.main();
     }
 
     private void create() {

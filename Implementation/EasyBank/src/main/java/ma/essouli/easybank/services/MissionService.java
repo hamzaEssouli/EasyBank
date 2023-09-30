@@ -1,5 +1,6 @@
 package ma.essouli.easybank.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import ma.essouli.easybank.daoImp.MissionDAOImp;
@@ -31,6 +32,10 @@ public class MissionService {
 
     public boolean delete(int missionId) {
         return missionDAO.delete(missionId);
+    }
+
+    public List<Mission> read() {
+        return missionDAO.read();
     }
     
 }

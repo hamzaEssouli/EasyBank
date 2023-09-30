@@ -1,5 +1,6 @@
 package ma.essouli.easybank.view;
 
+import java.util.List;
 import java.util.Scanner;
 
 import ma.essouli.easybank.dto.Mission;
@@ -28,6 +29,7 @@ public class MissionView {
             System.out.println("*******************************Mission menu**********************************");
             System.out.println("1 - Add");
             System.out.println("2 - Delete");
+            System.out.println("3 - display");
             System.out.println("0 - back to main menu");
             System.out.print("Enter your choice: ");
             try {
@@ -104,6 +106,21 @@ public class MissionView {
             System.out.println("Mission may be not exist");
             Thread.sleep(3000);
         } catch (Exception e) { e.printStackTrace(); }        
+    }
+
+    public void display(List<Mission> missions){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Display Mission**********************************");
+        System.out.println("\n\n\n");
+        if(! missions.isEmpty() )
+            for(Mission mission : missions) 
+                System.out.println(mission);
+        else 
+            System.out.println("\n\n\n No founded missions");
+        System.out.println("\n\n\n");
+        System.out.println("Enter some input to back to main menu.");
+        scanner.next();
     }
 
 
