@@ -57,8 +57,15 @@ public class MissionDAOImp implements MissionDAO {
 
     @Override
     public boolean delete(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        String deleteQuery = "DELETE FROM Missions WHERE id = ?";
+        try( PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery) ) {
+            preparedStatement.setInt(1, id);
+
+            if( preparedStatement.executeUpdate() > 0)
+                return true;
+        } catch( SQLException e) { e.printStackTrace(); System.exit(0); }
+
+        return false;
     }
     
 }

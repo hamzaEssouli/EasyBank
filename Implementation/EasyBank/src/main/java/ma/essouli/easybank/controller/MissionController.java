@@ -43,9 +43,6 @@ public class MissionController {
     private void display() {
     }
 
-    private void delete() {
-    }
-
     private void create() {
         Mission mission = service.create( view.create() );
         if(mission != null ) 
@@ -55,4 +52,16 @@ public class MissionController {
         this.main();
 
     }
+
+    private void delete() {
+        int id = view.delete();
+        if(id != 0) { 
+            if( service.delete(id) ) 
+                view.deleted(id);     
+            else 
+                view.notDeleted();
+        } 
+        this.main();
+    }
+
 }

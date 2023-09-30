@@ -77,6 +77,35 @@ public class MissionView {
         } catch (Exception e) { e.printStackTrace(); }        
     }
 
+    public int delete() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Delete mission**********************************");
+        System.out.println("(0): Back to main menu");
+        int id = getId("delete");
+        return id;
+    }
+    public void deleted(int id) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Mission deleted succsessfully**********************************");
+        System.out.println("\n\n");
+        System.out.println("Mission with id ( "+id+" ) deleted.");
+        System.out.println("\n\n");
+        System.out.println("Enter some input to back to main menu.");
+        scanner.next();
+    }
+    public void notDeleted() {
+        try {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("*******************************Mission couldn't be deleted**********************************");
+            System.out.println("\n\n");
+            System.out.println("Mission may be not exist");
+            Thread.sleep(3000);
+        } catch (Exception e) { e.printStackTrace(); }        
+    }
+
 
     private int getId(String lable) {
         int id = -1;
