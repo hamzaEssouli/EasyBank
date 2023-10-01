@@ -61,9 +61,16 @@ public class MissionAssignementDAOImp implements MissionAssignmentDAO {
     
 
     @Override
-    public HashMap<String, Integer> statistics(int missionId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'statistics'");
+    public HashMap<String, Integer> statistics() {
+        String statisticQuery = "SELECT mission.name, COUNT(*) FROM missionAssignments LEFT JOIN Missions as mission ON mission.id = missionAssignments.missionId GROUP BY mission.name";
+        HashMap<String, Integer> statistics = new HashMap<>();
+        try( PreparedStatement preparedStatement = connection.prepareStatement(statisticQuery) ) {
+            ResultSet result = preparedStatement.executeQuery();
+            while( result.next() ) 
+                statistics.put( result.getString("name") , result.getInt("count") );
+        } catch( SQLException e ) { e.printStackTrace(); System.exit(0); }
+
+        return statistics;
     }
 
     @Override

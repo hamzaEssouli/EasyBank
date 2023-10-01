@@ -2,6 +2,7 @@ package ma.essouli.easybank.view;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import ma.essouli.easybank.dto.Employee;
@@ -32,8 +33,7 @@ public class MissionAssignementView {
             System.out.println("*******************************Mission assignments menu**********************************");
             System.out.println("1 - Assign");
             System.out.println("2 - Delete assignemnt");
-            System.out.println("3 - display");
-            System.out.println("4 - statistics");
+            System.out.println("3 - statistics ");
             System.out.println("0 - back to main menu");
             System.out.print("Enter your choice: ");
             try {
@@ -41,7 +41,7 @@ public class MissionAssignementView {
             } catch (Exception e) {
                 scanner.next();
             }
-        } while( choice < 0 || choice > 4);
+        } while( choice < 0 || choice > 3 );
 
         return choice;
     }
@@ -87,6 +87,17 @@ public class MissionAssignementView {
             System.out.println("check your inputs and try again");
             Thread.sleep(3000);
         } catch (Exception e) { e.printStackTrace(); }        
+    }
+
+    public void statistics(HashMap<String, Integer> statistics) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Mission assignments statistics**********************************");
+        System.out.println("\n\n");
+        System.out.println(statistics.toString());
+        System.out.println("\n\n");
+        System.out.println("Enter some input to back to main menu.");
+        scanner.next();
     }
 
 

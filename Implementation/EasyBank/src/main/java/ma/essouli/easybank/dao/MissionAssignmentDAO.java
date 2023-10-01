@@ -11,6 +11,6 @@ public interface MissionAssignmentDAO {
     Optional<MissionAssignment> create(MissionAssignment missionAssignment);
     boolean delete(int missionId);
     List<MissionAssignment> findByEmployee(int employeeId);
-    HashMap<String, Integer> statistics(int missionId);
+    HashMap<String, Integer> statistics();
 
 }

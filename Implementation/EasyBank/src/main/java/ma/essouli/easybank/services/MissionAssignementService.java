@@ -1,5 +1,6 @@
 package ma.essouli.easybank.services;
 
+import java.util.HashMap;
 import java.util.Optional;
 
 import ma.essouli.easybank.daoImp.MissionAssignementDAOImp;
@@ -27,6 +28,10 @@ public class MissionAssignementService {
             optionalAssignment.get()
         :
             null; 
+    }
+
+    public HashMap<String, Integer> statistics() {
+        return missionAssignmentDAO.statistics();
     }
 
 }

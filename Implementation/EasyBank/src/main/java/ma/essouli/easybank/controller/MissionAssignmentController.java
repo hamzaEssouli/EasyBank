@@ -34,6 +34,7 @@ public class MissionAssignmentController {
             case 2: 
                 break;
             case 3:
+                this.statistics();
                 break;
         }
     }
@@ -44,6 +45,11 @@ public class MissionAssignmentController {
             view.created(assignment);
         else view.notCreated();
         
+        this.main();
+    }
+
+    private void statistics() {
+        view.statistics(service.statistics());
         this.main();
     }
 }
