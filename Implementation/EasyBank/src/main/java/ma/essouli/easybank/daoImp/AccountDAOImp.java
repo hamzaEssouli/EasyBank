@@ -168,9 +168,27 @@ public class AccountDAOImp implements AccountDAO {
 
         return Optional.empty();
     }
-   
     
+    @Override
+    public Optional<Account> findByOperation(int operationId) {
+        String findAccountByoperationQuery = "SELECT account.*, operations.id FROM Operations JOIN Accounts as account ON account.id = operations.accountId WHERE operations.id = ? ";
+        try( PreparedStatement preparedStatement = connection.prepareStatement(findAccountByoperationQuery) ) {
+            preparedStatement.setInt(1, operationId);
 
+            ResultSet result = preparedStatement.executeQuery(); 
+            if( result.next() ) {
+                Account account = new Account();
+                account.setId(result.getInt("id"));
+                account.setBalance(result.getDouble("balance"));
+                account.setCreationDate(LocalDate.parse( result.getDate("creationDate").toString() ) );
+                account.setStatus( AccountStatus.valueOf( result.getString("status") ));
+
+                return Optional.of(account);
+            }
+        } catch( SQLException e ) { e.printStackTrace(); }
+
+        return Optional.empty();
+    }
 
    
     

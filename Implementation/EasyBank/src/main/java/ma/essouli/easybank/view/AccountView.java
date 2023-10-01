@@ -1,8 +1,6 @@
 package ma.essouli.easybank.view;
 
 import java.time.LocalDate;
-import java.time.Period;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -37,8 +35,8 @@ public class AccountView {
             System.out.println("1 - Add");
             System.out.println("2 - update ");
             System.out.println("3 - Delete");
-            System.out.println("4 - search");
-            System.out.println("5 - update");
+            System.out.println("4 - search by code ");
+            System.out.println("5 - search by operation");
             System.out.println("6 - display");
             System.out.println("0 - back to main menu");
             System.out.print("Enter your choice: ");
@@ -172,6 +170,27 @@ public class AccountView {
         System.out.print("Client ");
         int id = getId("search");
         return id;
+    }
+
+    public int searchByOperation() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Search Account by operation**********************************");
+        System.out.println("(0): Back to main menu");
+        System.out.print("Opration ");
+        int id = getId("search");
+        return id;
+    }
+
+    public void _founded(Account account) {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Account founded succsessfully**********************************");
+        System.out.println("\n\n");
+        System.out.println(account);
+        System.out.println("\n\n");
+        System.out.println("Enter some input to back to main menu.");
+        scanner.next();
     }
 
     public void founded(HashMap< String, List<?>> accounts) {

@@ -45,6 +45,8 @@ public class AccountController {
             case 4:
                 this.searchByRegistrationCode();
                 break;
+            case 5:
+                this.findByOperation();
             case 6:
                 this.display();
                 break;
@@ -138,6 +140,16 @@ public class AccountController {
         }
         
         this.main();
+    }
+
+    private void findByOperation() {
+        Account account = service.findByOperation(view.searchByOperation());
+        if( account != null ) 
+            view._founded(account);
+        view.notFounded();
+
+        this.main();
+    
     }
 
 

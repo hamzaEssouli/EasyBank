@@ -131,6 +131,15 @@ public class AccountService {
             null;
     }
 
+    public Account findByOperation(int operationId ) {
+        Optional<Account> optionalAccount = accountDAO.findByOperation(operationId);
+
+        return optionalAccount.isPresent() ?
+            optionalAccount.get()
+        :
+            null;
+    }
+
 
     
 }

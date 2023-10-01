@@ -15,5 +15,6 @@ public interface AccountDAO extends Dao<Account> {
     Optional<Account> find(int accountId);
     List<Account> displayAccountsByStatus(AccountStatus status);
     List<Account> displayAccountsByCreationDate(LocalDate creationDate);
+    Optional<Account> findByOperation(int operationId);
 
 }
