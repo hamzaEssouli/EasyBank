@@ -9,7 +9,7 @@ import ma.essouli.easybank.dto.MissionAssignment;
 public interface MissionAssignmentDAO {
     
     Optional<MissionAssignment> create(MissionAssignment missionAssignment);
-    boolean delete(int missionId);
+    boolean delete();
     List<MissionAssignment> findByEmployee(int employeeId);
     HashMap<String, Integer> statistics();
 

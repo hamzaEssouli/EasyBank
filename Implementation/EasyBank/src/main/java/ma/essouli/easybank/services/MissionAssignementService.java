@@ -34,4 +34,7 @@ public class MissionAssignementService {
         return missionAssignmentDAO.statistics();
     }
 
+    public boolean delete() {
+        return missionAssignmentDAO.delete();
+    }
 }

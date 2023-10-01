@@ -100,6 +100,42 @@ public class MissionAssignementView {
         scanner.next();
     }
 
+    public boolean delete() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("*******************************Delete mission assignments**********************************");
+        scanner.nextLine();
+        String answer = "";
+            do {
+                try {
+                    System.out.println("By excuting this operation you will delete the last mission assignment, are you sure ? [yes/no]");
+                    answer = scanner.nextLine().toLowerCase();
+                } catch (Exception e) { scanner.next(); }
+            } while(  ! answer.equals("yes")  &&  ! answer.equals("no") || answer.equals("")  );
+            if( answer.compareTo("no") == 0 ) 
+                return false;
+            return true;
+    }
+    public void deleted() {
+        try {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("*******************************Assignment deleted succesfully**********************************");
+            System.out.println("\n\n");
+            Thread.sleep(3000);
+        } catch (Exception e) { e.printStackTrace(); }   
+    }
+
+    public void notDeleted() {
+        try {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("*******************************Assignment couldn't be deleted**********************************");
+            System.out.println("\n\n");
+            Thread.sleep(3000);
+        } catch (Exception e) { e.printStackTrace(); }        
+    }
+
 
     private int getId(String lable) {
         int id = -1;

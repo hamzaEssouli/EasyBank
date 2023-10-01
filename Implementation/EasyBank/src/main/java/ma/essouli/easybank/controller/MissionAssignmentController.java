@@ -32,6 +32,7 @@ public class MissionAssignmentController {
                 this.create();
                 break;
             case 2: 
+                this.delete();
                 break;
             case 3:
                 this.statistics();
@@ -45,6 +46,15 @@ public class MissionAssignmentController {
             view.created(assignment);
         else view.notCreated();
         
+        this.main();
+    }
+
+    private void delete() {
+        if( view.delete() )
+            if(service.delete())
+                view.deleted();
+            else view.notDeleted();
+
         this.main();
     }
 

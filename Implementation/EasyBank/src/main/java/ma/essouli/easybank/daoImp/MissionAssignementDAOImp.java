@@ -99,9 +99,14 @@ public class MissionAssignementDAOImp implements MissionAssignmentDAO {
     }
 
     @Override
-    public boolean delete(int missionId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    public boolean delete() {
+        String deleteQuery = "DELETE FROM MissionAssignments WHERE assignmentStartDate = (SELECT MAX(assignmentStartDate) FROM MissionAssignments)";
+        try( PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery) ) {
+            if(preparedStatement.executeUpdate() > 0)
+                return true;
+        } catch( SQLException e ) { e.printStackTrace(); System.exit(0); }
+
+        return false;
     }
     
 }
