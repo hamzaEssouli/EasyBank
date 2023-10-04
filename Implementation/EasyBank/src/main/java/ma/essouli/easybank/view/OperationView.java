@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import ma.essouli.easybank.dto.Account;
 import ma.essouli.easybank.dto.Employee;
-import ma.essouli.easybank.dto.Operation;
+import ma.essouli.easybank.dto.SimpleOperation;
 import ma.essouli.easybank.enums.OperationType;
 
 public class OperationView {
@@ -44,7 +44,7 @@ public class OperationView {
         return choice;
     }
 
-    public Operation create() {
+    public SimpleOperation create() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.println("*******************************Add operation**********************************");
@@ -55,7 +55,7 @@ public class OperationView {
         double amount = getAmount();
         OperationType type = getType();
 
-        Operation operation = new Operation();
+        SimpleOperation operation = new SimpleOperation();
         Employee employee = new Employee();
         Account account = new Account();
         account.setId(accountId);
@@ -69,7 +69,7 @@ public class OperationView {
 
     }
 
-    public void created(Operation operation) {
+    public void created(SimpleOperation operation) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.println("*******************************Operation added succsessfully**********************************");
@@ -131,7 +131,7 @@ public class OperationView {
         return id;
     }
     
-    public void founded(Operation operation) {
+    public void founded(SimpleOperation operation) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.println("*******************************Operation founded succsessfully**********************************");

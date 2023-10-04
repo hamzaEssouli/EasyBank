@@ -6,38 +6,38 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 
-import ma.essouli.easybank.dao.OperationDAO;
-import ma.essouli.easybank.dto.Operation;
+import ma.essouli.easybank.dao.SimpleOperationDAO;
+import ma.essouli.easybank.dto.SimpleOperation;
 import ma.essouli.easybank.enums.OperationType;
 import ma.essouli.easybank.utilities.DataBaseAccessLayer;
 
-public class OperationDAOImp implements OperationDAO {
+public class SimpleOperationDAOImp implements SimpleOperationDAO {
 
-    private static OperationDAOImp instance = null;
+    private static SimpleOperationDAOImp instance = null;
 
     private Connection connection = null;
     private AccountDAOImp accountDAO = null;
     private EmployeeDAOImp employeeDAO = null;
     
-    private OperationDAOImp() {
+    private SimpleOperationDAOImp() {
         connection = DataBaseAccessLayer.getConnection();
         accountDAO = AccountDAOImp.getInstance();
         employeeDAO = EmployeeDAOImp.getInstance();
     } 
 
-    public static OperationDAOImp getInstance() {
+    public static SimpleOperationDAOImp getInstance() {
         if( instance == null )
-            instance = new OperationDAOImp();
+            instance = new SimpleOperationDAOImp();
         return instance;
     }
 
 
     @Override
-    public Optional<Operation> create(Operation operation) {
+    public Optional<SimpleOperation> create(SimpleOperation operation) {
         String insterQuery = "INSERT INTO Operations (accountId, employeeId, type, amount) VALUES (?, ?, ?, ?)";
         try( PreparedStatement preparedStatement = connection.prepareStatement(insterQuery, Statement.RETURN_GENERATED_KEYS) ) {
             preparedStatement.setInt(1, operation.getAccount().getId());
@@ -51,12 +51,12 @@ public class OperationDAOImp implements OperationDAO {
                     int generatedId = generatedKey.getInt(1);
                     operation.setId(generatedId);
                     operation.setAccount(accountDAO.find( operation.getAccount().getId() ).get());
-                    operation.setDate(LocalDate.now());
+                    operation.setDate(LocalDateTime.now());
                     return Optional.of(operation);
                 }
             }
             
-        } catch( SQLException e ) { e.printStackTrace(); System.exit(0); }
+        } catch( SQLException e ) { e.printStackTrace();  }
 
         return Optional.empty();
     }
@@ -75,7 +75,7 @@ public class OperationDAOImp implements OperationDAO {
     }
 
     @Override
-    public Optional<Operation> search(int operationId) {
+    public Optional<SimpleOperation> search(int operationId) {
         String searchQuery = "SELECT * FROM Operations WHERE id = ?";
 
         try( PreparedStatement preparedStatement = connection.prepareStatement(searchQuery) ) {
@@ -83,10 +83,10 @@ public class OperationDAOImp implements OperationDAO {
 
             ResultSet result = preparedStatement.executeQuery();
             if( result.next() ) {
-                Operation  operation = new Operation();
+                SimpleOperation  operation = new SimpleOperation();
                 operation.setId(operationId);
                 operation.setAmount(result.getDouble("amount"));
-                operation.setDate( LocalDate.parse( result.getDate("date").toString() ) );
+                operation.setDate( LocalDateTime.parse( result.getDate("date").toString() ) );
                 operation.setType( OperationType.valueOf( result.getString("type") ) );
                 operation.setAccount( accountDAO.find(result.getInt("accountId")).get() );
                 operation.setEmployee( employeeDAO.searchByRegistrationCode(result.getInt("employeeId")).get() );

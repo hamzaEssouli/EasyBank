@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,7 @@ import ma.essouli.easybank.dto.Client;
 import ma.essouli.easybank.dto.Employee;
 import ma.essouli.easybank.dto.Mission;
 import ma.essouli.easybank.dto.MissionAssignment;
-import ma.essouli.easybank.dto.Operation;
+import ma.essouli.easybank.dto.SimpleOperation;
 import ma.essouli.easybank.enums.OperationType;
 import ma.essouli.easybank.utilities.DataBaseAccessLayer;
 
@@ -202,19 +203,19 @@ public class EmployeeDAOImp implements EmployeeDAO {
     }
 
     @Override
-    public List<Operation> getOperations(int employeeId) {
+    public List<SimpleOperation> getOperations(int employeeId) {
         String getOperationsQuery = "SELECT * FROM Operations WHERE employeeId = ?";
-        List<Operation> operations = new ArrayList<>();
+        List<SimpleOperation> operations = new ArrayList<>();
         try(PreparedStatement preparedStatement = connection.prepareStatement(getOperationsQuery)) {
             preparedStatement.setInt(1, employeeId);
             ResultSet result = preparedStatement.executeQuery();
             while( result.next() ) {
-                Operation operation = new Operation();
+                SimpleOperation operation = new SimpleOperation();
                 Account account = new Account();
                 account.setId(result.getInt("accountId"));
                 operation.setId(result.getInt("id"));
                 operation.setAmount(result.getDouble("amount"));
-                operation.setDate( LocalDate.parse(result.getDate("date").toString()) );
+                operation.setDate( LocalDateTime.parse(result.getDate("date").toString()) );
                 operation.setType( OperationType.valueOf(result.getString("type")) );
                 operation.setAccount(account);
 

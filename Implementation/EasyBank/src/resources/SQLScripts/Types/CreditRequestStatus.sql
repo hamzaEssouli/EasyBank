@@ -1,0 +1,1 @@
+CREATE TYPE CreditRequestStatus AS ENUM('PENDING', 'ACCEPTED', 'REFUSED');

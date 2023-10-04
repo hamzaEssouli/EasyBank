@@ -8,7 +8,7 @@ public class Employee extends Person {
     private LocalDate recruitmentDate;
     private String email;
     private List<Client> clients;
-    private List<Operation> operations;
+    private List<SimpleOperation> operations;
     private List<MissionAssignment> missions;
 
     public Employee() {};
@@ -32,7 +32,7 @@ public class Employee extends Person {
     public List<Client> getClients() {
         return clients;
     }
-    public List<Operation> getOperations() {
+    public List<SimpleOperation> getOperations() {
         return operations;
     }
     public List<MissionAssignment> getMissions() {
@@ -51,7 +51,7 @@ public class Employee extends Person {
     public void setMissions(List<MissionAssignment> missions) {
         this.missions = missions;
     }
-    public void setOperations(List<Operation> operations) {
+    public void setOperations(List<SimpleOperation> operations) {
         this.operations = operations;
     }
 

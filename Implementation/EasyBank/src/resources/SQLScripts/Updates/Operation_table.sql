@@ -1,0 +1,8 @@
+ALTER TABLE Operations
+ADD COLUMN date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+UPDATE Operations
+SET date = old_date;
+
+ALTER TABLE Operations
+DROP COLUMN old_date;

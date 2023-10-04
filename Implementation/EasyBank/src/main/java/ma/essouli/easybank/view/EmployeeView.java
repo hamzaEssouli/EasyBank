@@ -9,7 +9,7 @@ import java.util.Scanner;
 import ma.essouli.easybank.dto.Client;
 import ma.essouli.easybank.dto.Employee;
 import ma.essouli.easybank.dto.MissionAssignment;
-import ma.essouli.easybank.dto.Operation;
+import ma.essouli.easybank.dto.SimpleOperation;
 
 public class EmployeeView {
     
@@ -275,10 +275,10 @@ public class EmployeeView {
         scanner.next();
     }
 
-    public void showEmployeeOperations(List<Operation> operations) {
+    public void showEmployeeOperations(List<SimpleOperation> operations) {
         System.out.println("[\n\n");
         if( ! operations.isEmpty() )
-            for (Operation operation : operations) {
+            for (SimpleOperation operation : operations) {
                 System.out.println(operation);
             }
         else System.out.println("This Employee haven't done any operations"); 

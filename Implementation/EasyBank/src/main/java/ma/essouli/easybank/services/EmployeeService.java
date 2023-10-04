@@ -7,7 +7,7 @@ import ma.essouli.easybank.daoImp.EmployeeDAOImp;
 import ma.essouli.easybank.dto.Client;
 import ma.essouli.easybank.dto.Employee;
 import ma.essouli.easybank.dto.MissionAssignment;
-import ma.essouli.easybank.dto.Operation;
+import ma.essouli.easybank.dto.SimpleOperation;
 
 public class EmployeeService {
     
@@ -69,8 +69,8 @@ public class EmployeeService {
         return missionAssignments;
     }
 
-    public List<Operation> getOperations(int employeeId) {
-        List<Operation> operations = employeeDAO.getOperations(employeeId);
+    public List<SimpleOperation> getOperations(int employeeId) {
+        List<SimpleOperation> operations = employeeDAO.getOperations(employeeId);
         return operations;
     }
 

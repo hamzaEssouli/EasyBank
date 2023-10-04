@@ -3,17 +3,9 @@ package ma.essouli.easybank.dto;
 import java.time.LocalDate;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import ma.essouli.easybank.enums.AccountStatus;
 
 
-@AllArgsConstructor
-@Builder
-@ToString
 public  class Account {
     
     protected int id;
@@ -21,7 +13,7 @@ public  class Account {
     protected LocalDate creationDate;
     protected AccountStatus status;
     protected Client client;
-    protected List<Operation> operations; 
+    protected List<SimpleOperation> operations; 
 
     public Account() {}
 
@@ -40,7 +32,7 @@ public  class Account {
     public Client getClient() {
         return client;
     }
-    public List<Operation> getOperations() {
+    public List<SimpleOperation> getOperations() {
         return operations;
     }
 
@@ -59,7 +51,7 @@ public  class Account {
     public void setClient(Client client) {
         this.client = client;
     }
-    public void setOperations(List<Operation> operations) {
+    public void setOperations(List<SimpleOperation> operations) {
         this.operations = operations;
     }
 

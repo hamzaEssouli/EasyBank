@@ -1,24 +1,24 @@
 package ma.essouli.easybank.controller;
 
-import ma.essouli.easybank.dto.Operation;
-import ma.essouli.easybank.services.OperationService;
+import ma.essouli.easybank.dto.SimpleOperation;
+import ma.essouli.easybank.services.SimpleOperationService;
 import ma.essouli.easybank.view.OperationView;
 
-public class OperationController {
+public class SimpleOperationController {
     
-    private static OperationController instance = null;
+    private static SimpleOperationController instance = null;
     
-    private  OperationService service = null;
+    private  SimpleOperationService service = null;
     private OperationView view = null;
 
-    private OperationController() {
-        service = OperationService.getInstance();
+    private SimpleOperationController() {
+        service = SimpleOperationService.getInstance();
         view = OperationView.getInstance();
     }
 
-    public static OperationController getInstance() {
+    public static SimpleOperationController getInstance() {
         if( instance == null )
-            instance = new OperationController();
+            instance = new SimpleOperationController();
         return instance;
     }
 
@@ -43,7 +43,7 @@ public class OperationController {
     
 
     private void create() {
-        Operation operation = service.create( view.create() );
+        SimpleOperation operation = service.create( view.create() );
         if(operation == null) 
             view.notCreated();
         else view.created(operation);
@@ -63,7 +63,7 @@ public class OperationController {
     }
 
     private void search() {
-        Operation operation = service.search( view.search() );
+        SimpleOperation operation = service.search( view.search() );
         if( operation == null )
             view.notFounded();
         else view.founded(operation);

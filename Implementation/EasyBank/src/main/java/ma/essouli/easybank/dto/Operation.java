@@ -1,64 +1,15 @@
 package ma.essouli.easybank.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-import ma.essouli.easybank.enums.OperationType;
+import lombok.Data;
 
-public class Operation {
+@Data
+public abstract class Operation {
     
-    private int id;
-    private LocalDate date;
-    private double amount;
-    private OperationType type;
-    private Account account;
-    private Employee employee;
+    protected int id;
+    protected LocalDateTime date;
+    protected double amount;
 
-    public int getId() {
-        return id;
-    }
-    public LocalDate getDate() {
-        return date;
-    }
-    public double getAmount() {
-        return amount;
-    }
-    public OperationType getType() {
-        return type;
-    }
-    public Account getAccount() {
-        return account;
-    }
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-    public void setType(OperationType type) {
-        this.type = type;
-    }
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-
-    @Override
-    public String toString() {
-        return "{\n"+
-            "\tType: " + this.type.toString() + '\n' +
-            "\tAmount: " + this.amount + '\n' +
-            "\tDate: " + this.date.toString() + '\n'+
-            "\tAccount :"  +  this.account +'\n'+
-            "}";
-    }
+    
 }

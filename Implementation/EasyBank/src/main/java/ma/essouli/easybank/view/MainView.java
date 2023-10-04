@@ -25,7 +25,9 @@ public class MainView {
             System.out.println("3 - Account management");
             System.out.println("4 - Operation management");
             System.out.println("5 - Mission management");
-            System.out.println("6 - mission assignment management");
+            System.out.println("6 - Mission assignment management");
+            System.out.println("7 - Agency management");
+            System.out.println("8 - Credit request management");
             System.out.println("0 - Exit");
             System.out.println("\n");
             System.out.print("Enter your choice: ");

@@ -9,7 +9,7 @@ public class MainController {
     private static final EmployeeController employee = EmployeeController.getInstance();
     private static final ClientController client = ClientController.getInstance();
     private static final AccountController account = AccountController.getInstance();
-    private static final OperationController operation = OperationController.getInstance();
+    private static final SimpleOperationController operation = SimpleOperationController.getInstance();
     private static final MissionController mission = MissionController.getInstance();
     private static final MissionAssignmentController missionAssignments = MissionAssignmentController.getInstance();
 
