@@ -390,7 +390,7 @@ public class EmployeeView {
             scanner.nextLine();
             do {
                 try {
-                    System.out.println("Are u realy want to delete the employee with that registration code ? [yes/no]");
+                    System.out.println("Do u realy want to delete the employee with that registration code ? [yes/no]");
                     answer = scanner.nextLine().toLowerCase();
                 } catch (Exception e) { scanner.next(); }
             } while(  ! answer.equals("yes")  &&  ! answer.equals("no") || answer.equals("")  );

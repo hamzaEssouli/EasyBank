@@ -3,7 +3,6 @@ package ma.essouli.easybank.controller;
 import java.util.List;
 
 import ma.essouli.easybank.dto.Client;
-import ma.essouli.easybank.dto.Employee;
 import ma.essouli.easybank.services.ClientService;
 import ma.essouli.easybank.view.ClientView;
 

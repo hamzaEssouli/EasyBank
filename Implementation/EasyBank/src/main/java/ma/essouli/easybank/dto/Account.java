@@ -3,8 +3,17 @@ package ma.essouli.easybank.dto;
 import java.time.LocalDate;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import ma.essouli.easybank.enums.AccountStatus;
 
+
+@AllArgsConstructor
+@Builder
+@ToString
 public  class Account {
     
     protected int id;
@@ -53,17 +62,6 @@ public  class Account {
     public void setOperations(List<Operation> operations) {
         this.operations = operations;
     }
-
-    @Override
-    public String toString() {
-        return "\n{\n"+
-        "\tAccount number: " + this.id + '\n'+
-        "\tBalance : " + this.balance + '\n'+
-        "\tStatus : " + this.status + '\n'+
-        "\tCreation date: " + this.creationDate + '\n'+
-        "}\n";
-    }
-
 
     
 }

@@ -16,10 +16,12 @@ import ma.essouli.easybank.enums.AccountStatus;
 
 public class AccountService {
     
+    
+    private static AccountService instance = null;
+
     private AccountDAO accountDAO = null;
     private CurrentAccountDAOImp currentAccountDAOImp = null;
     private SavingAccountDAOImp savingAccountDAOImp = null;
-    private static AccountService instance = null;
 
     private AccountService() {
         this.accountDAO = AccountDAOImp.getInstance();
@@ -35,6 +37,8 @@ public class AccountService {
 
 
     public CurrentAccount createCurrentAccount(CurrentAccount currentAccount) {
+        if ( this.find( currentAccount.getId() ) != null )
+            return null;
         Optional<Account> account = accountDAO.create(currentAccount);
         if( ! account.isPresent() )
             return null;

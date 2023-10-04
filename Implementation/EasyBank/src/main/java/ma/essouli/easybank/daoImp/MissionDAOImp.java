@@ -80,5 +80,24 @@ public class MissionDAOImp implements MissionDAO {
 
         return false;
     }
+
+    @Override
+    public Optional<Mission> find(int missionId) {
+        String findQuery = "SELECT * FROM Missions WHERE id = ?";
+        try( PreparedStatement preparedStatement = connection.prepareStatement(findQuery) ) {
+            preparedStatement.setInt(1, missionId);
+            ResultSet result = preparedStatement.executeQuery();
+            if( result.next() ) {
+                Mission mission = new Mission();
+                mission.setId( result.getInt("id") );
+                mission.setName( result.getString("name") );
+                mission.setDescription( result.getString("description") );
+
+                return Optional.of(mission);
+            }
+        } catch( SQLException e ) { e.printStackTrace(); }
+
+        return Optional.empty();
+    }
     
 }

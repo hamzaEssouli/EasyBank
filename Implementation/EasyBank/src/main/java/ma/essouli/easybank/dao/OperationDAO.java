@@ -9,4 +9,5 @@ public interface OperationDAO {
     Optional<Operation> create(Operation operation);
     boolean delete(int operationId);
     Optional<Operation> search(int operationId);
+    
 }

@@ -9,5 +9,6 @@ public interface MissionDAO {
     
     Optional<Mission> create(Mission missison);
     List<Mission> read();
+    Optional<Mission> find(int misisonId);
     boolean delete(int id);
 }

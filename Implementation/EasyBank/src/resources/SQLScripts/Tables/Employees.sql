@@ -5,5 +5,5 @@ CREATE TABLE Employees (
 	dateOfBirth DATE NOT NULL,
 	phoneNumber VARCHAR(15) NOT NULL UNIQUE,
 	recruitmentDate DATE NOT NULL,
-	emial VARCHAR(50) NOT NULL UNIQUE
+	email VARCHAR(50) NOT NULL UNIQUE
 );
